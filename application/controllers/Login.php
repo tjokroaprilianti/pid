@@ -12,43 +12,37 @@ class Login extends CI_Controller
 		$this->form_validation->set_message('required', '{field} tidak boleh kosong!.');
 
 		if ($this->form_validation->run() == false) {
-			$this->load->view('login/index');
+			$data = [
+				'title' => 'Login',
+			];
+			$this->load->view('login/index', $data);
 		} else {
 			$username = $this->input->post('username_user');
 			$password = $this->input->post('password_user');
 			$user = $this->db->get_where('tb_user', ['username_user' => $username])->row();
 
 			if ($user) {
-				// if (password_verify($password, $user->password_user)) {
-				if ($password === $user->password_user) {
+				if (password_verify($password, $user->password_user)) {
 					$newdata = [
+						'username'  => $user->username_user,
 						'nama'  => $user->nama_user,
-						'email' => $user->email_user,
-						'nip' => $user->nip_user,
-						'id' => $user->id_user,
+						'avatar'  => $user->avatar_user,
 						'login' => 1,
 					];
-					// $this->session->set_userdata($newdata);
-
+					$this->session->set_userdata($newdata);
 					$this->session->set_flashdata('message', '
-					<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<div class="alert alert-success" role="alert">
 						<div class="container text-center">
-							<span class="badge badge-success">Success</span> Login successfully.
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+							<span class="badge badge-success">Berhasil</span> Login berhasil.
 						</div>
 					</div>
 					');
-					redirect('admin/dashboard');
+					redirect('dashboard');
 				} else {
 					$this->session->set_flashdata('message', '
-					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<div class="alert alert-danger" role="alert">
 						<div class="container text-center">
-							<span class="badge badge-danger">Failed</span> Please check your username and password!.
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+							<span class="badge badge-danger">Gagal</span> Harap periksa kembali username dan password anda!.
 						</div>
 					</div>
 					');
@@ -56,14 +50,11 @@ class Login extends CI_Controller
 				}
 			} else {
 				$this->session->set_flashdata('message', '
-					<div class="alert alert-danger alert-dismissible fade show" role="alert">
-						<div class="container text-center">
-							<span class="badge badge-danger">Failed</span> Please check your username and password!.
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
+				<div class="alert alert-danger" role="alert">
+					<div class="container text-center">
+						<span class="badge badge-danger">Failed</span> Harap periksa kembali username dan password anda!.
 					</div>
+				</div>
 					');
 				redirect('login');
 			}

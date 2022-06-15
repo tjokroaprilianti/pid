@@ -21,11 +21,14 @@
 	<!-- Datatables CSS -->
 	<link href="<?= base_url('assets/template/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+	<!-- Datepicker -->
+	<link href="<?= base_url('assets/template/') ?>vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
 
-	<?=$this->session->flashdata('message');?>
+	<?= $this->session->flashdata('message'); ?>
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">

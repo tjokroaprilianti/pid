@@ -51,16 +51,55 @@
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/template/') ?>js/sb-admin-2.min.js"></script>
 
-<!-- Cart JS -->
+<!-- Page level plugins -->
 <script src="<?= base_url('assets/template/') ?>vendor/chart.js/Chart.min.js"></script>
-<script src="<?= base_url('assets/template/') ?>js/demo/chart-area-demo.js"></script>
-<script src="<?= base_url('assets/template/') ?>js/demo/chart-pie-demo.js"></script>
 
 <!-- Datatables JS -->
 <script src="<?= base_url('assets/template/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/template/') ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('assets/template/') ?>js/demo/datatables-demo.js"></script>
 
+<!-- Page level custom scripts -->
+<!-- <script src="<?= base_url('assets/template/') ?>js/demo/chart-area-demo.js"></script> -->
+<!-- <script src="<?= base_url('assets/template/') ?>js/demo/chart-pie-demo.js"></script> -->
+
+<!-- Datepicker -->
+<script src="<?= base_url('assets/template/') ?>vendor/moment/moment.min.js"></script>
+<script src="<?= base_url('assets/template/') ?>vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Custom.js -->
+<script src="<?= base_url('assets/template/') ?>js/custom.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		setDatePicker("#datepicker")
+		setDateRangePicker("#startdate", "#enddate")
+		setMonthPicker("#monthpicker")
+		setYearPicker("#yearpicker")
+		setYearRangePicker("#startyear", "#endyear")
+	});
+
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
+
+	$('input[type="file"]').change(function(e) {
+		var fileName = e.target.files[0].name;
+		$('.custom-file-label').html(fileName);
+	});
+
+	ClassicEditor
+		.create(document.querySelector('#editor'))
+		.catch(error => {
+			console.error(error);
+		});
+</script>
+<script>
+	window.setTimeout(function() {
+		$(".alert").fadeTo(800, 2).slideUp(800, function() {
+			$(this).remove();
+		});
+	}, 3000);
+</script>
 </body>
 
 </html>

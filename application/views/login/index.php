@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>SB Admin 2 - Login</title>
+	<title><?= $title ?> | PID</title>
 
 	<!-- Custom fonts for this template-->
 	<link href="<?= base_url('assets/template/') ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 
 <body class="bg-gradient-white">
 
-	<?=$this->session->flashdata('message');?>
+	<?= $this->session->flashdata('message'); ?>
 
 	<div class="container my-auto">
 
@@ -45,7 +45,7 @@
 									</div>
 									<form class="user" action="<?= base_url('login') ?>" method="POST">
 										<div class="form-group">
-											<input type="text" name="username_user" class="form-control form-control-user" value="<?= set_value('username_user'); ?>" id="username" placeholder="Username" autofocus>
+											<input type="text" name="username_user" class="form-control form-control-user" id="username" placeholder="Username" value="<?= set_value('username_user'); ?>" autofocus>
 											<?= form_error('username_user', '<small class="form-text text-danger">', '</small>'); ?>
 										</div>
 										<div class="form-group">
@@ -80,6 +80,13 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="<?= base_url('assets/template/') ?>js/sb-admin-2.min.js"></script>
+	<script type="text/javascript">
+		window.setTimeout(function() {
+			$(".alert").fadeTo(800, 2).slideUp(800, function() {
+				$(this).remove();
+			});
+		}, 3000);
+	</script>
 
 </body>
 
