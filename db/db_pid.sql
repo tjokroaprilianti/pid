@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jun 2022 pada 04.59
+-- Waktu pembuatan: 16 Jun 2022 pada 09.07
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -30,6 +30,30 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_akses` (
   `id_akses` int(11) NOT NULL,
   `nama_akses` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_akses_cost_center`
+--
+
+CREATE TABLE `tb_akses_cost_center` (
+  `id_akses_cost_center` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `cost_center_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_akses_cost_unit`
+--
+
+CREATE TABLE `tb_akses_cost_unit` (
+  `id_akses_cost_unit` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `cost_unit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -172,7 +196,8 @@ CREATE TABLE `tb_histori` (
   `pengajuan_id` int(11) NOT NULL,
   `unit_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `waktu_submit_histori` datetime NOT NULL,
+  `waktu_awal_submit` datetime NOT NULL,
+  `waktu_akhir_submit` datetime NOT NULL,
   `status_histori` varchar(225) DEFAULT NULL,
   `penerima` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -210,6 +235,36 @@ CREATE TABLE `tb_pengajuan` (
   `vet_pajak_pengajuan` text NOT NULL,
   `dpp_pajak_pengajuan` text NOT NULL,
   `created_at_pengajuan` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_pengajuan`
+--
+
+INSERT INTO `tb_pengajuan` (`id_pengajuan`, `cost_center_id`, `cost_unit_id`, `tanggal_invoice_pengajuan`, `proyek_pengajuan`, `vendor_pengajuan`, `alamat_vendor_pengajuan`, `vet_pajak_pengajuan`, `dpp_pajak_pengajuan`, `created_at_pengajuan`) VALUES
+(1, 2, 1, '2022-06-16 10:10:48', 'Pengajuan kunci-kunci untuk maintenance', 'PT. TEKIRO INDUSTRI', '(BKT), Banjir Kanal Timur', 'Vet pajak yang akan memperkaya pemerintahan yang absrut', 'Dpp pajak ini juga sama akan halnya dengan Vet pajak, yang sama-sama akan memperkaya pemerintahan yang absrut ini', '2022-06-16 03:14:09');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_role`
+--
+
+CREATE TABLE `tb_role` (
+  `id_role` int(11) NOT NULL,
+  `nama_role` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_role_user`
+--
+
+CREATE TABLE `tb_role_user` (
+  `id_role_user` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -256,6 +311,18 @@ ALTER TABLE `tb_akses`
   ADD PRIMARY KEY (`id_akses`);
 
 --
+-- Indeks untuk tabel `tb_akses_cost_center`
+--
+ALTER TABLE `tb_akses_cost_center`
+  ADD PRIMARY KEY (`id_akses_cost_center`);
+
+--
+-- Indeks untuk tabel `tb_akses_cost_unit`
+--
+ALTER TABLE `tb_akses_cost_unit`
+  ADD PRIMARY KEY (`id_akses_cost_unit`);
+
+--
 -- Indeks untuk tabel `tb_cost_center`
 --
 ALTER TABLE `tb_cost_center`
@@ -288,6 +355,18 @@ ALTER TABLE `tb_pengajuan`
   ADD KEY `cost_unit_id` (`cost_unit_id`);
 
 --
+-- Indeks untuk tabel `tb_role`
+--
+ALTER TABLE `tb_role`
+  ADD PRIMARY KEY (`id_role`);
+
+--
+-- Indeks untuk tabel `tb_role_user`
+--
+ALTER TABLE `tb_role_user`
+  ADD PRIMARY KEY (`id_role_user`);
+
+--
 -- Indeks untuk tabel `tb_unit`
 --
 ALTER TABLE `tb_unit`
@@ -308,6 +387,18 @@ ALTER TABLE `tb_user`
 --
 ALTER TABLE `tb_akses`
   MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_akses_cost_center`
+--
+ALTER TABLE `tb_akses_cost_center`
+  MODIFY `id_akses_cost_center` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_akses_cost_unit`
+--
+ALTER TABLE `tb_akses_cost_unit`
+  MODIFY `id_akses_cost_unit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_cost_center`
@@ -337,7 +428,19 @@ ALTER TABLE `tb_lampiran`
 -- AUTO_INCREMENT untuk tabel `tb_pengajuan`
 --
 ALTER TABLE `tb_pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_role`
+--
+ALTER TABLE `tb_role`
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_role_user`
+--
+ALTER TABLE `tb_role_user`
+  MODIFY `id_role_user` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_unit`

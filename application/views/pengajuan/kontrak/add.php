@@ -52,7 +52,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
 									</div>
-									<input type="text" name="tanggal_invoice_pengajuan" id="datepicker" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#datepicker" autocomplete="off" placeholder="YYYY-MM-DD" />
+									<input type="text" name="tanggal_invoice_pengajuan" id="datepicker" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#datepicker" autocomplete="off" placeholder="YYYY-MM-DD H:m:s" />
 								</div>
 								<?= form_error('tanggal_invoice_pengajuan', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
