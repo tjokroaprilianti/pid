@@ -40,7 +40,7 @@
 				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'role' || $this->uri->segment(3) == 'tambah_role' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/role')?>"><i class="far fa-circle"></i> Role</a>
 				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'akses' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/akses')?>"><i class="far fa-circle"></i> Akses</a>
 				<a class="collapse-item <?= $this->uri->segment(3) == 'cost' && $this->uri->segment(4) == 'center' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/cost/center')?>"><i class="far fa-circle"></i> Cost Center</a>
-				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'cost_unit' ? 'active text-primary' : '' ?>" href="<?=base_url('pengajuan/non_kontrak')?>"><i class="far fa-circle"></i> Cost Unit</a>
+				<a class="collapse-item <?= $this->uri->segment(3) == 'cost' && $this->uri->segment(4) == 'unit' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/cost/unit')?>"><i class="far fa-circle"></i> Cost Unit</a>
 			</div>
 		</div>
 	</li>

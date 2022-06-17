@@ -17,17 +17,22 @@
 							<h6 class="m-0 font-weight-bold text-grey-700"><i class="fas fa-plus"></i> Form <?= $title ?></h6>
 						</div>
 						<div class="col-lg">
-							<h6 class="m-0 font-weight-bold"><a href="<?= base_url('admin/master/role') ?>" class="btn btn-sm btn-secondary float-right"><i class="fas fa-arrow-left"></i> Kembali</a></h6>
+							<h6 class="m-0 font-weight-bold"><a href="<?= base_url('admin/master/cost/unit') ?>" class="btn btn-sm btn-secondary float-right"><i class="fas fa-arrow-left"></i> Kembali</a></h6>
 						</div>
 					</div>
 				</div>
 				<div class="card-body">
-					<form method="POST" action="<?= base_url('admin/master/role/tambah') ?>">
+					<form method="POST" action="<?= base_url('admin/master/cost/unit/tambah') ?>">
 						<div class="form-group form-row">
-							<div class="col-lg">
-								<label for="nama_role">Role <span class="text-danger">*</span></label>
-								<input type="text" name="nama_role" class="form-control" id="nama_role" autofocus>
-								<?= form_error('nama_role', '<small class="form-text text-danger">', '</small>'); ?>
+							<div class="col-lg-6">
+								<label for="kode_cost_unit">Kode Cost Unit <span class="text-danger">*</span></label>
+								<input type="text" name="kode_cost_unit" class="form-control" id="kode_cost_unit" autofocus>
+								<?= form_error('kode_cost_unit', '<small class="form-text text-danger">', '</small>'); ?>
+							</div>
+							<div class="col-lg-6">
+								<label for="nama_cost_unit">Nama Cost Unit <span class="text-danger">*</span></label>
+								<input type="text" name="nama_cost_unit" class="form-control" id="nama_cost_unit">
+								<?= form_error('nama_cost_unit', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
 						</div>
 						<button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-paper-plane"></i> Simpan</button>

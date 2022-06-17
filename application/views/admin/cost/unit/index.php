@@ -12,7 +12,7 @@
 		<div class="col-lg">
 			<div class="card shadow mb-4 border-bottom-primary">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('admin/master/role/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Role</a></h6>
+					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('admin/master/cost/unit/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Cost Unit</a></h6>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -20,21 +20,23 @@
 							<thead>
 								<tr>
 									<th>NO</th>
-									<th>Nama Role</th>
+									<th>Kode Cost Unit</th>
+									<th>Nama Cost Unit</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
 								$no = 1;
-								foreach ($list_role as $lr) :
+								foreach ($list_cost_unit as $lcu) :
 								?>
 									<tr>
 										<td><?= $no++ ?></td>
-										<td><?= $lr->nama_role ?></td>
+										<td><?= $lcu->kode_cost_unit ?></td>
+										<td><?= $lcu->nama_cost_unit ?></td>
 										<td>
-											<a href="<?=base_url('admin/master/role/ubah/') . $lr->id_role;?>" class="badge badge-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
-											<a href="<?=base_url('admin/master/role/hapus/') . $lr->id_role;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a>
+											<a href="<?=base_url('admin/master/cost/unit/ubah/') . $lcu->id_cost_unit;?>" class="badge badge-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
+											<a href="<?=base_url('admin/master/cost/unit/hapus/') . $lcu->id_cost_unit;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a>
 											<!-- <div class="btn-group dropleft">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													<i class="fas fa-list-ul"></i>

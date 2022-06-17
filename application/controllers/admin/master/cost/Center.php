@@ -59,55 +59,58 @@ class Center extends CI_Controller
     {
         $data = [
             'title' => 'Master Ubah Cost Center',
-            'data_akses' => $this->core->select('tb_akses', ['id_akses' => $id])
+            'data_cost_center' => $this->core->select('tb_cost_center', ['id_cost_center' => $id])
         ];
         $this->load->view('layout/admin/header', $data);
         $this->load->view('layout/admin/sidebar');
         $this->load->view('layout/admin/topbar');
-        $this->load->view('admin/akses/ubah', $data);
+        $this->load->view('admin/cost/center/ubah', $data);
         $this->load->view('layout/admin/footer');
     }
 
     public function proses_ubah($id)
     {
-        $this->form_validation->set_rules('nama_akses', 'Akses', 'trim|required');
+        $this->form_validation->set_rules('kode_cost_center', 'Kode Cost Center', 'trim|required');
+        $this->form_validation->set_rules('nama_cost_center', 'Nama Cost Center', 'trim|required');
 
         $this->form_validation->set_message('required', '{field} tidak boleh kosong!.');
         if ($this->form_validation->run() == false) {
             $data = [
-                'title' => 'Master Ubah Akses',
+                'title' => 'Master Ubah Cost Center',
+                'data_cost_center' => $this->core->select('tb_cost_center', ['id_cost_center' => $id])
             ];
             $this->load->view('layout/admin/header', $data);
             $this->load->view('layout/admin/sidebar');
             $this->load->view('layout/admin/topbar');
-            $this->load->view('admin/akses/ubah', $data);
+            $this->load->view('admin/cost/center/ubah', $data);
             $this->load->view('layout/admin/footer');
         } else {
             $data = [
-                'nama_askes' => $this->input->post('nama_askes'),
+                'kode_cost_center' => $this->input->post('kode_cost_center'),
+                'nama_cost_center' => $this->input->post('nama_cost_center'),
             ];
-            $this->core->update('tb_akses', ['id_akses' => $id], $data);
+            $this->core->update('tb_cost_center', ['id_cost_center' => $id], $data);
             $this->session->set_flashdata('message', '
             <div class="alert alert-success" role="alert">
                 <div class="container text-center">
-                    <span class="badge badge-success">Berhasil</span> Akses berhasil diubah.
+                    <span class="badge badge-success">Berhasil</span> Cost center berhasil diubah.
                 </div>
             </div>
             ');
-            redirect('admin/master/akses');
+            redirect('admin/master/cost/center');
         }
     }
 
     public function hapus($id)
     {
-        $this->core->delete('tb_akses', ['param' => 'id_akses', 'id' => $id]);
+        $this->core->delete('tb_cost_center', ['param' => 'id_cost_center', 'id' => $id]);
         $this->session->set_flashdata('message', '
         <div class="alert alert-success" role="alert">
             <div class="container text-center">
-                <span class="badge badge-success">Berhasil</span> Akses berhasil dihapus.
+                <span class="badge badge-success">Berhasil</span> Cost center berhasil dihapus.
             </div>
         </div>
         ');
-        redirect('admin/master/akses');
+        redirect('admin/master/cost/center');
     }
 }
