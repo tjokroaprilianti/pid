@@ -3,9 +3,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
-
 	public function index()
 	{
+		if ($this->session->userdata('login') != null) {
+			$this->session->set_flashdata('message', '
+			<div class="alert alert-danger" role="alert">
+				<div class="container text-center">
+					<span class="badge badge-danger">Ditolak</span> Akses ditolak!.
+				</div>
+			</div>
+			');
+			redirect('dashboard');
+		} else {
+			$this->_login();
+		}
+	}
+
+	private function _login()
+	{
+		cek_sudah_login();
 		$this->form_validation->set_rules('username_user', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password_user', 'Password', 'trim|required');
 

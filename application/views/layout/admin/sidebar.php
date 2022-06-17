@@ -14,7 +14,7 @@
 	<hr class="sidebar-divider my-0">
 
 	<!-- Nav Item - Dashboard -->
-	<li class="nav-item <?= $this->uri->segment(1) == 'dashboard' ? 'active' : '' ?>">
+	<li class="nav-item <?= $this->uri->segment(2) == 'dashboard' ? 'active' : '' ?>">
 		<a class="nav-link" href="<?=base_url('dashboard')?>">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span>Dashboard</span></a>
@@ -29,23 +29,25 @@
 	</div>
 
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item <?= $this->uri->segment(1) == 'pengajuan' ? 'active' : '' ?>">
+	<li class="nav-item <?= $this->uri->segment(2) == 'master' ? 'active' : '' ?>">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-			<i class="fas fa-fw fa-clipboard-list"></i>
+			<i class="fas fa-fw fa-server"></i>
 			<!-- <i class="fas fa-fw fa-book"></i> -->
-			<span>Pengajuan</span>
+			<span>Master</span>
 		</a>
-		<div id="collapseTwo" class="collapse <?= $this->uri->segment(1) == 'pengajuan' ? 'show' : '' ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+		<div id="collapseTwo" class="collapse <?= $this->uri->segment(2) == 'master' ? 'show' : '' ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item <?= $this->uri->segment(1) == 'pengajuan' && $this->uri->segment(2) == 'kontrak' || $this->uri->segment(2) == 'add_kontrak' ? 'active text-primary' : '' ?>" href="<?=base_url('pengajuan/kontrak')?>"><i class="far fa-circle"></i> Kontrak</a>
-				<a class="collapse-item <?= $this->uri->segment(1) == 'pengajuan' && $this->uri->segment(2) == 'non_kontrak' ? 'active text-primary' : '' ?>" href="<?=base_url('pengajuan/non_kontrak')?>"><i class="far fa-circle"></i> Non Kontrak</a>
+				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'role' || $this->uri->segment(3) == 'tambah_role' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/role')?>"><i class="far fa-circle"></i> Role</a>
+				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'akses' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/akses')?>"><i class="far fa-circle"></i> Akses</a>
+				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'cost_center' ? 'active text-primary' : '' ?>" href="<?=base_url('pengajuan/non_kontrak')?>"><i class="far fa-circle"></i> Cost Center</a>
+				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'cost_unit' ? 'active text-primary' : '' ?>" href="<?=base_url('pengajuan/non_kontrak')?>"><i class="far fa-circle"></i> Cost Unit</a>
 			</div>
 		</div>
 	</li>
 
 	<!-- Nav Item - Tables -->
-	<li class="nav-item <?= $this->uri->segment(1) == 'profile' ? 'active' : '' ?>">
-		<a class="nav-link" href="<?=base_url('profile')?>">
+	<li class="nav-item <?= $this->uri->segment(2) == 'profile' ? 'active' : '' ?>">
+		<a class="nav-link" href="<?=base_url('admin/profile')?>">
 			<i class="fas fa-fw fa-user-tie"></i>
 			<span>Profile</span></a>
 	</li>

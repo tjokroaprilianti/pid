@@ -11,6 +11,7 @@ class Kontrak extends CI_Controller
 
 	public function index()
 	{
+		cek_belum_login();
 		$join = [
 			'join1' => 'tb_cost_unit', 'referensi1' => 'tb_cost_unit.id_cost_unit = tb_pengajuan.cost_unit_id',
 			'join2' => 'tb_cost_center', 'referensi2' => 'tb_cost_center.id_cost_center = tb_pengajuan.cost_center_id',
@@ -28,6 +29,7 @@ class Kontrak extends CI_Controller
 
 	public function tambah()
 	{
+		cek_belum_login();
 		$this->form_validation->set_rules('cost_center_id', 'Cost Center', 'trim|required');
 		$this->form_validation->set_rules('cost_unit_id', 'Cost Unit', 'trim|required');
 		$this->form_validation->set_rules('tanggal_invoice_pengajuan', 'Tanggal Invoice Pengajuan', 'trim|required');

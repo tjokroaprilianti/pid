@@ -58,6 +58,12 @@ class Core_Model extends CI_Model
 	public function update($table, $where, $data)
 	{
 		$this->db->where($where);
-		$this->db->update($table, $data);
+		return $this->db->update($table, $data);
+	}
+
+	public function delete($table, $where)
+	{
+		$this->db->where($where['param'], $where['id']);
+		return $this->db->delete($table);
 	}
 }

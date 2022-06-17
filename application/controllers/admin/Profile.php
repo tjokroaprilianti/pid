@@ -12,30 +12,28 @@ class Profile extends CI_Controller
 
 	public function index()
 	{
-		cek_belum_login();
 		$data = [
-			'title' => 'Profile',
+			'title' => 'Admin Profile',
 			'user' => $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]),
 		];
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/sidebar');
-		$this->load->view('layout/topbar', $data);
-		$this->load->view('profile/index', $data);
-		$this->load->view('layout/footer');
+		$this->load->view('layout/admin/header', $data);
+		$this->load->view('layout/admin/sidebar');
+		$this->load->view('layout/admin/topbar', $data);
+		$this->load->view('admin/profile/index', $data);
+		$this->load->view('layout/admin/footer');
 	}
 
 	public function avatar()
 	{
-		cek_belum_login();
 		$data = [
-			'title' => 'Profile Avatar',
+			'title' => 'Admin Profile Avatar',
 			'user' => $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]),
 		];
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/sidebar');
-		$this->load->view('layout/topbar');
-		$this->load->view('profile/avatar', $data);
-		$this->load->view('layout/footer');
+		$this->load->view('layout/admin/header', $data);
+		$this->load->view('layout/admin/sidebar');
+		$this->load->view('layout/admin/topbar');
+		$this->load->view('admin/profile/avatar', $data);
+		$this->load->view('layout/admin/footer');
 	}
 
 	public function hapus_avatar($id)
@@ -53,7 +51,7 @@ class Profile extends CI_Controller
 				</div>
 			</div>
 			');
-			redirect('profile');
+			redirect('admin/profile');
 		} else {
 			$this->session->set_flashdata('message', '
 			<div class="alert alert-danger" role="alert">
@@ -62,7 +60,7 @@ class Profile extends CI_Controller
 				</div>
 			</div>
 			');
-			redirect('profile');
+			redirect('admin/profile');
 		}
 	}
 
@@ -87,7 +85,7 @@ class Profile extends CI_Controller
 					</div>
 				</div>
 				');
-				redirect('profile');
+				redirect('admin/profile');
 			} else {
 				$avatar_lama = $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]);
 				if ($avatar_lama->avatar_user != 'default.jpg') {
@@ -104,7 +102,7 @@ class Profile extends CI_Controller
 					</div>
 				</div>
 				');
-				redirect('profile');
+				redirect('admin/profile');
 			}
 		} else {
 			$this->session->set_flashdata('message', '
@@ -114,7 +112,7 @@ class Profile extends CI_Controller
 				</div>
 			</div>
 			');
-			redirect('profile');
+			redirect('admin/profile');
 		}
 	}
 
@@ -133,7 +131,7 @@ class Profile extends CI_Controller
 				'</div>
 			</div>'
 			));
-			redirect('profile');
+			redirect('admin/profile');
 		} else {
 			$nama = $this->input->post('nama_user');
 			$username = $this->input->post('username_user');
@@ -154,7 +152,7 @@ class Profile extends CI_Controller
 						</div>
 					</div>';
 			$this->session->set_flashdata('message', $pesan);
-			redirect('profile');
+			redirect('admin/profile');
 		}
 	}
 
@@ -174,7 +172,7 @@ class Profile extends CI_Controller
 				'</div>
 			</div>'
 			));
-			redirect('profile');
+			redirect('admin/profile');
 		} else {
 			$data = [
 				'password_user' => password_hash($this->input->post('password_user'), PASSWORD_DEFAULT),
@@ -187,7 +185,7 @@ class Profile extends CI_Controller
 				</div>
 			</div>
 			');
-			redirect('profile');
+			redirect('admin/profile');
 		}
 	}
 }
