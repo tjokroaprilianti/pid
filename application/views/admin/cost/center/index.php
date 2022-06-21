@@ -35,8 +35,8 @@
 										<td><?= $lcc->kode_cost_center ?></td>
 										<td><?= $lcc->nama_cost_center ?></td>
 										<td>
-											<a href="<?=base_url('admin/master/cost/center/ubah/') . $lcc->id_cost_center;?>" class="badge badge-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
-											<a href="<?=base_url('admin/master/cost/center/hapus/') . $lcc->id_cost_center;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a>
+											<a href="<?=base_url('admin/master/cost/center/ubah/') . $lcc->id_cost_center;?>" class="btn btn-sm btn-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
+											<!-- <a href="<?=base_url('admin/master/cost/center/hapus/') . $lcc->id_cost_center;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a> -->
 											<!-- <div class="btn-group dropleft">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													<i class="fas fa-list-ul"></i>

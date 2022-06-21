@@ -37,7 +37,7 @@
 						</div>
 						<div class="form-group form-row">
 							<div class="col-lg-6 col-xl-6">
-								<label for="username_user">Username <span class="text-danger">*</span></label>
+								<label for="username_user">Username <span class="text-danger">* <small>(Gunakan huruf kecil)</small></span></label>
 								<input type="text" name="username_user" class="form-control" value="<?= set_value('username_user'); ?>" id="username_user">
 								<?= form_error('username_user', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>

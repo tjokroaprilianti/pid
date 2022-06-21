@@ -116,7 +116,7 @@
 
 <!-- settingProfileModal -->
 <div class="modal fade" id="settingProfileModal" tabindex="-1" aria-labelledby="settingProfileModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="settingProfileModalLabel">Setting <?= $user->nama_user; ?></h5>

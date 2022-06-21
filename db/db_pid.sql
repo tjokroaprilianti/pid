@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jun 2022 pada 09.07
+-- Waktu pembuatan: 21 Jun 2022 pada 12.14
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -31,6 +31,15 @@ CREATE TABLE `tb_akses` (
   `id_akses` int(11) NOT NULL,
   `nama_akses` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_akses`
+--
+
+INSERT INTO `tb_akses` (`id_akses`, `nama_akses`) VALUES
+(1, 'lihat'),
+(2, 'hapus'),
+(3, 'ubah');
 
 -- --------------------------------------------------------
 
@@ -236,13 +245,6 @@ CREATE TABLE `tb_pengajuan` (
   `created_at_pengajuan` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `tb_pengajuan`
---
-
-INSERT INTO `tb_pengajuan` (`id_pengajuan`, `cost_center_id`, `cost_unit_id`, `tanggal_invoice_pengajuan`, `proyek_pengajuan`, `vendor_pengajuan`, `alamat_vendor_pengajuan`, `vet_pajak_pengajuan`, `dpp_pajak_pengajuan`, `created_at_pengajuan`) VALUES
-(1, 2, 1, '2022-06-16 10:10:48', 'Pengajuan kunci-kunci untuk maintenance', 'PT. TEKIRO INDUSTRI', '(BKT), Banjir Kanal Timur', 'Vet pajak yang akan memperkaya pemerintahan yang absrut', 'Dpp pajak ini juga sama akan halnya dengan Vet pajak, yang sama-sama akan memperkaya pemerintahan yang absrut ini', '2022-06-16 03:14:09');
-
 -- --------------------------------------------------------
 
 --
@@ -254,6 +256,14 @@ CREATE TABLE `tb_role` (
   `nama_role` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `tb_role`
+--
+
+INSERT INTO `tb_role` (`id_role`, `nama_role`) VALUES
+(1, 'admin'),
+(2, 'user');
+
 -- --------------------------------------------------------
 
 --
@@ -262,9 +272,16 @@ CREATE TABLE `tb_role` (
 
 CREATE TABLE `tb_role_user` (
   `id_role_user` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_role_user`
+--
+
+INSERT INTO `tb_role_user` (`id_role_user`, `user_id`, `role_id`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -289,15 +306,17 @@ CREATE TABLE `tb_user` (
   `username_user` varchar(115) NOT NULL,
   `password_user` varchar(225) NOT NULL,
   `avatar_user` varchar(255) NOT NULL,
-  `akses_id` int(11) NOT NULL
+  `status_user` enum('On','Off','','') NOT NULL,
+  `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `nama_user`, `username_user`, `password_user`, `avatar_user`, `akses_id`) VALUES
-(1, 'Mochamad Maulana', 'mochamadmaulana', '$2y$10$foBQGiNoLq9veYDBfpF21eAgtUrVk5rs5pAl0Zwm14xW10MMVXWN2', 'default.jpg', 0);
+INSERT INTO `tb_user` (`id_user`, `nama_user`, `username_user`, `password_user`, `avatar_user`, `status_user`, `role_id`) VALUES
+(1, 'Mochamad Maulana', 'admin', '$2y$10$OCZpbG.YCw8XPB7EoXg7cu6mklvtO4rOWG01VjeK1qlr.gG.72SCW', 'avatar-220621508551.jpg', 'On', 1),
+(2, 'Tommi Sugiarto', 'user', '$2y$10$HKIcIY0ORXuW7AumIDe7o.5bjN7/pKZnrQQ.wD8IWm7Uh1qcqPPly', 'default.jpg', 'On', 2);
 
 --
 -- Indexes for dumped tables
@@ -385,7 +404,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_akses`
 --
 ALTER TABLE `tb_akses`
-  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_akses_cost_center`
@@ -409,7 +428,7 @@ ALTER TABLE `tb_cost_center`
 -- AUTO_INCREMENT untuk tabel `tb_cost_unit`
 --
 ALTER TABLE `tb_cost_unit`
-  MODIFY `id_cost_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_cost_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_histori`
@@ -433,13 +452,13 @@ ALTER TABLE `tb_pengajuan`
 -- AUTO_INCREMENT untuk tabel `tb_role`
 --
 ALTER TABLE `tb_role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_role_user`
 --
 ALTER TABLE `tb_role_user`
-  MODIFY `id_role_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_role_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_unit`
@@ -451,7 +470,7 @@ ALTER TABLE `tb_unit`
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

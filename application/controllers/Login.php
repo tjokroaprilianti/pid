@@ -39,21 +39,52 @@ class Login extends CI_Controller
 
 			if ($user) {
 				if (password_verify($password, $user->password_user)) {
-					$newdata = [
-						'username'  => $user->username_user,
-						'nama'  => $user->nama_user,
-						'avatar'  => $user->avatar_user,
-						'login' => 1,
-					];
-					$this->session->set_userdata($newdata);
-					$this->session->set_flashdata('message', '
-					<div class="alert alert-success" role="alert">
-						<div class="container text-center">
-							<span class="badge badge-success">Berhasil</span> Login berhasil.
+					if ($user->status_user == 'On') {
+						if ($user->role_id == 1) {
+							$newdata = [
+								'username'  => $user->username_user,
+								'nama'  => $user->nama_user,
+								'avatar'  => $user->avatar_user,
+								'login' => 1,
+							];
+							$pesan = '
+							<div class="alert alert-success" role="alert">
+								<div class="container text-center">
+									<span class="badge badge-success">Berhasil</span> Selamat datang admin ' . $user->nama_user . '.
+								</div>
+							</div>
+							';
+							$this->session->set_userdata($newdata);
+							$this->session->set_flashdata('message', $pesan);
+							redirect('admin/dashboard');
+						} else {
+							$newdata = [
+								'username'  => $user->username_user,
+								'nama'  => $user->nama_user,
+								'avatar'  => $user->avatar_user,
+								'login' => 1,
+							];
+							$pesan = '
+							<div class="alert alert-success" role="alert">
+								<div class="container text-center">
+									<span class="badge badge-success">Berhasil</span> Selamat datang ' . $user->nama_user . '.
+								</div>
+							</div>
+							';
+							$this->session->set_userdata($newdata);
+							$this->session->set_flashdata('message', $pesan);
+							redirect('dashboard');
+						}
+					} else {
+						$this->session->set_flashdata('message', '
+						<div class="alert alert-danger" role="alert">
+							<div class="container text-center">
+								<span class="badge badge-danger">Gagal</span> Akun tidak aktif, harap hubungi admin!.
+							</div>
 						</div>
-					</div>
-					');
-					redirect('dashboard');
+						');
+						redirect('login');
+					}
 				} else {
 					$this->session->set_flashdata('message', '
 					<div class="alert alert-danger" role="alert">

@@ -33,8 +33,8 @@
 										<td><?= $no++ ?></td>
 										<td><?= $lr->nama_role ?></td>
 										<td>
-											<a href="<?=base_url('admin/master/role/ubah/') . $lr->id_role;?>" class="badge badge-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
-											<a href="<?=base_url('admin/master/role/hapus/') . $lr->id_role;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a>
+											<a href="<?=base_url('admin/master/role/ubah/') . $lr->id_role;?>" class="btn btn-sm btn-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
+											<!-- <a href="<?=base_url('admin/master/role/hapus/') . $lr->id_role;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a> -->
 											<!-- <div class="btn-group dropleft">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													<i class="fas fa-list-ul"></i>

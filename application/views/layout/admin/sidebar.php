@@ -15,7 +15,7 @@
 
 	<!-- Nav Item - Dashboard -->
 	<li class="nav-item <?= $this->uri->segment(2) == 'dashboard' ? 'active' : '' ?>">
-		<a class="nav-link" href="<?=base_url('dashboard')?>">
+		<a class="nav-link" href="<?=base_url('admin/dashboard')?>">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span>Dashboard</span></a>
 	</li>
@@ -39,23 +39,6 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'role' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/role')?>"><i class="far fa-circle"></i> Role</a>
 				<a class="collapse-item <?= $this->uri->segment(2) == 'master' && $this->uri->segment(3) == 'akses' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/akses')?>"><i class="far fa-circle"></i> Akses</a>
-				<a class="collapse-item <?= $this->uri->segment(3) == 'cost' && $this->uri->segment(4) == 'center' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/cost/center')?>"><i class="far fa-circle"></i> Cost Center</a>
-				<a class="collapse-item <?= $this->uri->segment(3) == 'cost' && $this->uri->segment(4) == 'unit' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/cost/unit')?>"><i class="far fa-circle"></i> Cost Unit</a>
-			</div>
-		</div>
-	</li>
-
-	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item <?= $this->uri->segment(2) == 'setting' ? 'active' : '' ?>">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSetting" aria-expanded="true" aria-controls="collapseSetting">
-			<i class="fas fa-fw fa-cogs"></i>
-			<!-- <i class="fas fa-fw fa-book"></i> -->
-			<span>Setting</span>
-		</a>
-		<div id="collapseSetting" class="collapse <?= $this->uri->segment(2) == 'setting' ? 'show' : '' ?>" aria-labelledby="headingSetting" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item <?= $this->uri->segment(2) == 'setting' && $this->uri->segment(4) == 'user' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/setting/role/user')?>"><i class="far fa-circle"></i> Role User</a>
-				<a class="collapse-item <?= $this->uri->segment(2) == 'setting' && $this->uri->segment(3) == 'akses' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/log/akses')?>"><i class="far fa-circle"></i> Akses</a>
 				<a class="collapse-item <?= $this->uri->segment(3) == 'cost' && $this->uri->segment(4) == 'center' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/cost/center')?>"><i class="far fa-circle"></i> Cost Center</a>
 				<a class="collapse-item <?= $this->uri->segment(3) == 'cost' && $this->uri->segment(4) == 'unit' ? 'active text-primary' : '' ?>" href="<?=base_url('admin/master/cost/unit')?>"><i class="far fa-circle"></i> Cost Unit</a>
 			</div>
