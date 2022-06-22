@@ -46,6 +46,7 @@ class Login extends CI_Controller
 								'nama'  => $user->nama_user,
 								'avatar'  => $user->avatar_user,
 								'login' => 1,
+								'role' => $user->role_id,
 							];
 							$pesan = '
 							<div class="alert alert-success" role="alert">

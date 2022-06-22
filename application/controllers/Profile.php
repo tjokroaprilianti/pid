@@ -7,12 +7,13 @@ class Profile extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		cek_belum_login();
+		cek_admin();
 		$this->load->model('Core_Model', 'core');
 	}
 
 	public function index()
 	{
-		cek_belum_login();
 		$data = [
 			'title' => 'Profile',
 			'user' => $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]),

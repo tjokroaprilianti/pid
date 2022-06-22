@@ -43,19 +43,25 @@
 										<td><?= $u->nama_user ?></td>
 										<td><?= $u->username_user ?></td>
 										<td>
-											<form action="<?= base_url('admin/user/ubah_status/') . $u->id_user ?>" method="POST" class="d-inline">
-												<?php if ($u->status_user == 'On') : ?>
-													<input type="hidden" name="status_user" value="Off">
-													<button type="submit" class="btn btn-sm btn-success border-0" data-toggle="tooltip" data-placement="left" title="Ubah ke off">
-														<i class="fas fa-check"></i>
-													</button>
-												<?php else : ?>
-													<input type="hidden" name="status_user" value="On">
-													<button type="submit" class="btn btn-sm btn-danger border-0" data-toggle="tooltip" data-placement="left" title="Ubah ke on">
-														<i class="fas fa-times"></i>
-													</button>
-												<?php endif; ?>
-											</form>
+											<?php if ($u->id_user !== $user_login->id_user) : ?>
+												<form action="<?= base_url('admin/user/ubah_status/') . $u->id_user ?>" method="POST" class="d-inline">
+													<?php if ($u->status_user == 'On') : ?>
+														<input type="hidden" name="status_user" value="Off">
+														<button type="submit" class="btn btn-sm btn-success border-0" data-toggle="tooltip" data-placement="left" title="Ubah ke off">
+															<i class="fas fa-check"></i>
+														</button>
+													<?php else : ?>
+														<input type="hidden" name="status_user" value="On">
+														<button type="submit" class="btn btn-sm btn-danger border-0" data-toggle="tooltip" data-placement="left" title="Ubah ke on">
+															<i class="fas fa-times"></i>
+														</button>
+													<?php endif; ?>
+												</form>
+											<?php else : ?>
+												<button type="submit" class="btn btn-sm btn-success border-0" data-toggle="tooltip" data-placement="left" title="Status tidak bisa diubah">
+													<i class="fas fa-check"></i>
+												</button>
+											<?php endif; ?>
 										</td>
 										<td><?= ucfirst($u->nama_role) ?></td>
 										<td>

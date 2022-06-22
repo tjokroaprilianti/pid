@@ -6,7 +6,7 @@ class Logout extends CI_Controller
 
 	public function index()
 	{
-		$array_items = array('username', 'login', 'nama', 'avatar');
+		$array_items = array('username', 'login', 'nama', 'avatar', 'role');
 		$this->session->unset_userdata($array_items);
 		$this->session->set_flashdata('message', '
 		<div class="alert alert-success" role="alert">

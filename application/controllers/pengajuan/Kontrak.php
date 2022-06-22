@@ -6,6 +6,8 @@ class Kontrak extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		cek_belum_login();
+		cek_admin();
 		$this->load->model('Core_Model', 'core');
 	}
 

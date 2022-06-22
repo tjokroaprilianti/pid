@@ -32,6 +32,37 @@ function cek_belum_login()
     }
 }
 
+function cek_admin()
+{
+    $CI = &get_instance();
+    $user = $CI->session->userdata('role');
+    if ($user == 1) {
+        $CI->session->set_flashdata('message', '
+        <div class="alert alert-danger" role="alert">
+            <div class="container text-center">
+                <span class="badge badge-danger">Ditolak</span> Akses ditolak!.
+            </div>
+        </div>
+        ');
+        redirect('admin/dashboard');
+    }
+}
+
+function cek_bukan_admin()
+{
+    $CI = &get_instance();
+    $user = $CI->session->userdata('role');
+    if ($user != 1) {
+        $CI->session->set_flashdata('message', '
+        <div class="alert alert-danger" role="alert">
+            <div class="container text-center">
+                <span class="badge badge-danger">Ditolak</span> Akses ditolak!.
+            </div>
+        </div>
+        ');
+        redirect('dashboard');
+    }
+}
 // function cek_admin()
 // {
 // 	$CI = &get_instance();
