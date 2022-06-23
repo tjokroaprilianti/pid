@@ -21,7 +21,7 @@ class Center extends CI_Controller
         $this->load->view('layout/admin/header', $data);
         $this->load->view('layout/admin/sidebar');
         $this->load->view('layout/admin/topbar');
-        $this->load->view('admin/cost/center/index', $data);
+        $this->load->view('admin/master/cost/center/index', $data);
         $this->load->view('layout/admin/footer');
     }
 
@@ -38,7 +38,7 @@ class Center extends CI_Controller
             $this->load->view('layout/admin/header', $data);
             $this->load->view('layout/admin/sidebar');
             $this->load->view('layout/admin/topbar');
-            $this->load->view('admin/cost/center/tambah', $data);
+            $this->load->view('admin/master/cost/center/tambah', $data);
             $this->load->view('layout/admin/footer');
         } else {
             $data = [
@@ -66,7 +66,7 @@ class Center extends CI_Controller
         $this->load->view('layout/admin/header', $data);
         $this->load->view('layout/admin/sidebar');
         $this->load->view('layout/admin/topbar');
-        $this->load->view('admin/cost/center/ubah', $data);
+        $this->load->view('admin/master/cost/center/ubah', $data);
         $this->load->view('layout/admin/footer');
     }
 
@@ -84,7 +84,7 @@ class Center extends CI_Controller
             $this->load->view('layout/admin/header', $data);
             $this->load->view('layout/admin/sidebar');
             $this->load->view('layout/admin/topbar');
-            $this->load->view('admin/cost/center/ubah', $data);
+            $this->load->view('admin/master/cost/center/ubah', $data);
             $this->load->view('layout/admin/footer');
         } else {
             $data = [

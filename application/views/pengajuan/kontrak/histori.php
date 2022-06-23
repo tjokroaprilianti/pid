@@ -12,36 +12,32 @@
 		<div class="col-lg">
 			<div class="card shadow mb-4 border-bottom-primary">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('pengajuan/kontrak/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Kontrak</a></h6>
+					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('pengajuan/kontrak') ?>" class="btn btn-sm btn-secondary float-right"><i class="fas fa-arrow-left"></i> Kembali</a></h6>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 							<thead>
 								<tr>
-									<th>Cost Unit</th>
-									<th>Cost Center</th>
-									<th>Proyek Pengajuan</th>
-									<th>Vendor Pengajuan</th>
-									<th>Alamat Vendor</th>
-									<th>VET Pajak</th>
-									<th>DPP Pajak</th>
-									<th>Tanggal Invoice</th>
-									<th>Tanggal Dibuat</th>
+									<th>Kode Pengajuan</th>
+									<th>Nama Pengaju</th>
+									<th>Waktu Submit</th>
+									<th>Waktu Akhir Submit</th>
+									<th>Status</th>
+									<th>Penerima</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><?= $pengajuan->nama_cost_unit ?></td>
-									<td><?= $pengajuan->nama_cost_center ?></td>
-									<td><?= $pengajuan->proyek_pengajuan ?></td>
-									<td><?= $pengajuan->vendor_pengajuan ?></td>
-									<td><?= $pengajuan->alamat_vendor_pengajuan ?></td>
-									<td><?= $pengajuan->vet_pajak_pengajuan ?></td>
-									<td><?= $pengajuan->dpp_pajak_pengajuan ?></td>
-									<td><?= $pengajuan->tanggal_invoice_pengajuan ?></td>
-									<td><?= $pengajuan->created_at_pengajuan ?></td>
-								</tr>
+								<?php foreach ($histori as $h) : ?>
+									<tr>
+										<td><?= $h->kode_pengajuan ?></td>
+										<td><?= $h->nama_user ?></td>
+										<td><?= $h->waktu_awal_submit ?></td>
+										<td><?= $h->waktu_akhir_submit == null ? '<span class="text-gray-500">Tidak ada data</span>' : $h->waktu_akhir_submit ?></td>
+										<td><?= $h->status_histori ?></td>
+										<td><?= $h->nama_jabatan ?></td>
+									</tr>
+								<?php endforeach ?>
 							</tbody>
 						</table>
 					</div>

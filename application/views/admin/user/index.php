@@ -88,7 +88,7 @@
 </div>
 <!-- /.container-fluid -->
 
-<!-- Modal Status User-->
+<!-- Modal Password User-->
 <?php foreach ($user as $u) : ?>
 	<div class="modal fade" id="passwordUserModal<?= $u->id_user ?>" tabindex="-1" aria-labelledby="passwordUserModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">

@@ -27,7 +27,7 @@
 							<div class="col-lg-6">
 								<label for="cost_center">Cost Unit <span class="text-danger">*</span></label>
 								<select name="cost_unit_id" class="form-control" id="cost_center">
-									<option value="" class="text-gray-500">- choose cost unit -</option>
+									<option value="" class="text-gray-500">- pilih cost unit -</option>
 									<?php foreach ($cost_unit as $cu) : ?>
 										<option value="<?= $cu->id_cost_unit ?>"><?= $cu->kode_cost_unit ?> | <?= $cu->nama_cost_unit ?></option>
 									<?php endforeach; ?>
@@ -37,7 +37,7 @@
 							<div class="col-lg">
 								<label for="cost_center">Cost Center <span class="text-danger">*</span></label>
 								<select name="cost_center_id" class="form-control" id="cost_center">
-									<option value="">- choose cost center -</option>
+									<option value="">- pilih cost center -</option>
 									<?php foreach ($cost_center as $cc) : ?>
 										<option value="<?= $cc->id_cost_center ?>"><?= $cc->kode_cost_center ?> | <?= $cc->nama_cost_center ?></option>
 									<?php endforeach; ?>

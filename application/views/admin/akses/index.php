@@ -11,30 +11,37 @@
 	<div class="row">
 		<div class="col-lg">
 			<div class="card shadow mb-4 border-bottom-primary">
-				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('admin/master/akses/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Akses</a></h6>
-				</div>
+				<!-- <div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('admin/akses/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Akses</a></h6>
+				</div> -->
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 							<thead>
 								<tr>
 									<th>NO</th>
-									<th>Nama Akses</th>
+									<th>Nama</th>
+									<th>Akses</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
 								$no = 1;
-								foreach ($list_akses as $lr) :
+								foreach ($user as $u) :
 								?>
 									<tr>
 										<td><?= $no++ ?></td>
-										<td><?= $lr->nama_akses ?></td>
+										<td><?= $u->nama_user ?></td>
 										<td>
-											<a href="<?=base_url('admin/master/akses/ubah/') . $lr->id_akses;?>" class="btn btn-sm btn-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
-											<!-- <a href="<?=base_url('admin/master/akses/hapus/') . $lr->id_akses;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a> -->
+											
+										</td>
+										<td>
+											<?php if ($this->session->userdata('username') == $u->username_user) : ?>
+											<?php else : ?>
+												<a href="<?= base_url('admin/akses/setting/') . $u->id_user; ?>" class="btn btn-sm btn-secondary mr-2" data-toggle="tooltip" data-placement="left" title="Setting"><i class="fas fa-cog"></i></a>
+											<?php endif; ?>
+											<!-- <a href="<?= base_url('admin/akses/hapus/') . $u->id_user; ?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a> -->
 											<!-- <div class="btn-group dropleft">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													<i class="fas fa-list-ul"></i>
@@ -58,3 +65,37 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<!-- Modal Akses -->
+<?php foreach ($user as $u) : ?>
+	<div class="modal fade" id="aksesModal<?= $u->id_user ?>" tabindex="-1" aria-labelledby="aksesModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="aksesModalLabel">Setting Akses <?= $u->nama_user ?></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="POST" action="<?= base_url('admin/akses/setting') ?>">
+						<div class="form-group form-row">
+							<div class="col-lg">
+								<?php foreach ($list_akses as $la) : ?>
+									<div class="custom-control custom-switch">
+										<input type="checkbox" name="akses[]" value="<?= $la->nama_akses ?>" class="custom-control-input" id="customSwitchAkses<?= $la->id_akses ?>">
+										<label class="custom-control-label" for="customSwitchAkses<?= $la->id_akses ?>"><?= ucfirst($la->nama_akses) ?></label>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+					<button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-paper-plane"></i> Simpan</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<?php endforeach; ?>

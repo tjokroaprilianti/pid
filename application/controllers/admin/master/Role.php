@@ -21,7 +21,7 @@ class Role extends CI_Controller
         $this->load->view('layout/admin/header', $data);
         $this->load->view('layout/admin/sidebar');
         $this->load->view('layout/admin/topbar');
-        $this->load->view('admin/role/index', $data);
+        $this->load->view('admin/master/role/index', $data);
         $this->load->view('layout/admin/footer');
     }
 
@@ -37,7 +37,7 @@ class Role extends CI_Controller
             $this->load->view('layout/admin/header', $data);
             $this->load->view('layout/admin/sidebar');
             $this->load->view('layout/admin/topbar');
-            $this->load->view('admin/role/tambah', $data);
+            $this->load->view('admin/master/role/tambah', $data);
             $this->load->view('layout/admin/footer');
         } else {
             $data = [
@@ -64,7 +64,7 @@ class Role extends CI_Controller
         $this->load->view('layout/admin/header', $data);
         $this->load->view('layout/admin/sidebar');
         $this->load->view('layout/admin/topbar');
-        $this->load->view('admin/role/ubah', $data);
+        $this->load->view('admin/master/role/ubah', $data);
         $this->load->view('layout/admin/footer');
     }
 
@@ -80,7 +80,7 @@ class Role extends CI_Controller
             $this->load->view('layout/admin/header', $data);
             $this->load->view('layout/admin/sidebar');
             $this->load->view('layout/admin/topbar');
-            $this->load->view('admin/role/ubah', $data);
+            $this->load->view('admin/master/role/ubah', $data);
             $this->load->view('layout/admin/footer');
         } else {
             $data = [

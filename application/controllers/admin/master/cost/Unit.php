@@ -21,7 +21,7 @@ class Unit extends CI_Controller
         $this->load->view('layout/admin/header', $data);
         $this->load->view('layout/admin/sidebar');
         $this->load->view('layout/admin/topbar');
-        $this->load->view('admin/cost/unit/index', $data);
+        $this->load->view('admin/master/cost/unit/index', $data);
         $this->load->view('layout/admin/footer');
     }
 
@@ -38,7 +38,7 @@ class Unit extends CI_Controller
             $this->load->view('layout/admin/header', $data);
             $this->load->view('layout/admin/sidebar');
             $this->load->view('layout/admin/topbar');
-            $this->load->view('admin/cost/unit/tambah', $data);
+            $this->load->view('admin/master/cost/unit/tambah', $data);
             $this->load->view('layout/admin/footer');
         } else {
             $data = [
@@ -66,7 +66,7 @@ class Unit extends CI_Controller
         $this->load->view('layout/admin/header', $data);
         $this->load->view('layout/admin/sidebar');
         $this->load->view('layout/admin/topbar');
-        $this->load->view('admin/cost/unit/ubah', $data);
+        $this->load->view('admin/master/cost/unit/ubah', $data);
         $this->load->view('layout/admin/footer');
     }
 
@@ -84,7 +84,7 @@ class Unit extends CI_Controller
             $this->load->view('layout/admin/header', $data);
             $this->load->view('layout/admin/sidebar');
             $this->load->view('layout/admin/topbar');
-            $this->load->view('admin/cost/unit/ubah', $data);
+            $this->load->view('admin/master/cost/unit/ubah', $data);
             $this->load->view('layout/admin/footer');
         } else {
             $data = [

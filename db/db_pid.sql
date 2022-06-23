@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Jun 2022 pada 12.14
+-- Waktu pembuatan: 23 Jun 2022 pada 10.55
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -64,6 +64,25 @@ CREATE TABLE `tb_akses_cost_unit` (
   `unit_id` int(11) NOT NULL,
   `cost_unit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_akses_user`
+--
+
+CREATE TABLE `tb_akses_user` (
+  `id_akses_user` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `akses_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_akses_user`
+--
+
+INSERT INTO `tb_akses_user` (`id_akses_user`, `user_id`, `akses_id`) VALUES
+(1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -201,13 +220,52 @@ INSERT INTO `tb_cost_unit` (`id_cost_unit`, `kode_cost_unit`, `nama_cost_unit`) 
 
 CREATE TABLE `tb_histori` (
   `id_histori` int(11) NOT NULL,
-  `pengajuan_id` int(11) NOT NULL,
-  `unit_id` int(11) NOT NULL,
+  `kode_pengajuan` varchar(20) NOT NULL,
   `user_id` int(11) NOT NULL,
   `waktu_awal_submit` datetime NOT NULL,
-  `waktu_akhir_submit` datetime NOT NULL,
-  `status_histori` varchar(225) DEFAULT NULL,
+  `waktu_akhir_submit` datetime DEFAULT NULL,
+  `status_histori` enum('Menunggu','Di Proses','Selesai','Di Tolak') NOT NULL,
   `penerima` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_histori`
+--
+
+INSERT INTO `tb_histori` (`id_histori`, `kode_pengajuan`, `user_id`, `waktu_awal_submit`, `waktu_akhir_submit`, `status_histori`, `penerima`) VALUES
+(1, '86ka3s2cvl', 2, '2022-06-23 15:15:52', NULL, 'Menunggu', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_jabatan`
+--
+
+CREATE TABLE `tb_jabatan` (
+  `id_jabatan` int(11) NOT NULL,
+  `nama_jabatan` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_jabatan`
+--
+
+INSERT INTO `tb_jabatan` (`id_jabatan`, `nama_jabatan`) VALUES
+(1, 'Manajer'),
+(2, 'Accounting'),
+(3, 'Pajak'),
+(4, 'Pembayaran');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_jabatan_user`
+--
+
+CREATE TABLE `tb_jabatan_user` (
+  `id_jabatan_user` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `jabatan_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -234,6 +292,8 @@ CREATE TABLE `tb_lampiran` (
 
 CREATE TABLE `tb_pengajuan` (
   `id_pengajuan` int(11) NOT NULL,
+  `kode_pengajuan` varchar(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `cost_center_id` int(11) NOT NULL,
   `cost_unit_id` int(11) NOT NULL,
   `tanggal_invoice_pengajuan` datetime NOT NULL,
@@ -244,6 +304,13 @@ CREATE TABLE `tb_pengajuan` (
   `dpp_pajak_pengajuan` text NOT NULL,
   `created_at_pengajuan` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_pengajuan`
+--
+
+INSERT INTO `tb_pengajuan` (`id_pengajuan`, `kode_pengajuan`, `user_id`, `cost_center_id`, `cost_unit_id`, `tanggal_invoice_pengajuan`, `proyek_pengajuan`, `vendor_pengajuan`, `alamat_vendor_pengajuan`, `vet_pajak_pengajuan`, `dpp_pajak_pengajuan`, `created_at_pengajuan`) VALUES
+(1, '86ka3s2cvl', 2, 42, 33, '2022-06-15 15:15:22', 'Pengadaan PS 5', 'PT. APS', 'asdasd', 'asdasd', 'asdasd', '2022-06-23 08:15:52');
 
 -- --------------------------------------------------------
 
@@ -267,25 +334,6 @@ INSERT INTO `tb_role` (`id_role`, `nama_role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_role_user`
---
-
-CREATE TABLE `tb_role_user` (
-  `id_role_user` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_role_user`
---
-
-INSERT INTO `tb_role_user` (`id_role_user`, `user_id`, `role_id`) VALUES
-(1, 1, 1);
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `tb_unit`
 --
 
@@ -293,6 +341,16 @@ CREATE TABLE `tb_unit` (
   `id_unit` int(11) NOT NULL,
   `nama_unit` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_unit`
+--
+
+INSERT INTO `tb_unit` (`id_unit`, `nama_unit`) VALUES
+(1, 'IT'),
+(2, 'Finance'),
+(3, 'Hrd'),
+(4, 'Legal');
 
 -- --------------------------------------------------------
 
@@ -307,16 +365,17 @@ CREATE TABLE `tb_user` (
   `password_user` varchar(225) NOT NULL,
   `avatar_user` varchar(255) NOT NULL,
   `status_user` enum('On','Off','','') NOT NULL,
-  `role_id` int(11) NOT NULL
+  `role_id` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `nama_user`, `username_user`, `password_user`, `avatar_user`, `status_user`, `role_id`) VALUES
-(1, 'Mochamad Maulana', 'admin', '$2y$10$OCZpbG.YCw8XPB7EoXg7cu6mklvtO4rOWG01VjeK1qlr.gG.72SCW', 'avatar-220621508551.jpg', 'On', 1),
-(2, 'Tommi Sugiarto', 'user', '$2y$10$HKIcIY0ORXuW7AumIDe7o.5bjN7/pKZnrQQ.wD8IWm7Uh1qcqPPly', 'default.jpg', 'On', 2);
+INSERT INTO `tb_user` (`id_user`, `nama_user`, `username_user`, `password_user`, `avatar_user`, `status_user`, `role_id`, `unit_id`) VALUES
+(1, 'Mochamad Maulana', 'admin', '$2y$10$OCZpbG.YCw8XPB7EoXg7cu6mklvtO4rOWG01VjeK1qlr.gG.72SCW', 'avatar-220621508551.jpg', 'On', 1, 1),
+(2, 'Tommi Sugiarto', 'user', '$2y$10$HKIcIY0ORXuW7AumIDe7o.5bjN7/pKZnrQQ.wD8IWm7Uh1qcqPPly', 'default.jpg', 'On', 2, 4);
 
 --
 -- Indexes for dumped tables
@@ -341,6 +400,12 @@ ALTER TABLE `tb_akses_cost_unit`
   ADD PRIMARY KEY (`id_akses_cost_unit`);
 
 --
+-- Indeks untuk tabel `tb_akses_user`
+--
+ALTER TABLE `tb_akses_user`
+  ADD PRIMARY KEY (`id_akses_user`);
+
+--
 -- Indeks untuk tabel `tb_cost_center`
 --
 ALTER TABLE `tb_cost_center`
@@ -359,6 +424,20 @@ ALTER TABLE `tb_histori`
   ADD PRIMARY KEY (`id_histori`);
 
 --
+-- Indeks untuk tabel `tb_jabatan`
+--
+ALTER TABLE `tb_jabatan`
+  ADD PRIMARY KEY (`id_jabatan`);
+
+--
+-- Indeks untuk tabel `tb_jabatan_user`
+--
+ALTER TABLE `tb_jabatan_user`
+  ADD PRIMARY KEY (`id_jabatan_user`),
+  ADD KEY `jabatan_id` (`jabatan_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indeks untuk tabel `tb_lampiran`
 --
 ALTER TABLE `tb_lampiran`
@@ -370,19 +449,14 @@ ALTER TABLE `tb_lampiran`
 ALTER TABLE `tb_pengajuan`
   ADD PRIMARY KEY (`id_pengajuan`),
   ADD KEY `cost_center_id` (`cost_center_id`),
-  ADD KEY `cost_unit_id` (`cost_unit_id`);
+  ADD KEY `cost_unit_id` (`cost_unit_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeks untuk tabel `tb_role`
 --
 ALTER TABLE `tb_role`
   ADD PRIMARY KEY (`id_role`);
-
---
--- Indeks untuk tabel `tb_role_user`
---
-ALTER TABLE `tb_role_user`
-  ADD PRIMARY KEY (`id_role_user`);
 
 --
 -- Indeks untuk tabel `tb_unit`
@@ -419,6 +493,12 @@ ALTER TABLE `tb_akses_cost_unit`
   MODIFY `id_akses_cost_unit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `tb_akses_user`
+--
+ALTER TABLE `tb_akses_user`
+  MODIFY `id_akses_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `tb_cost_center`
 --
 ALTER TABLE `tb_cost_center`
@@ -434,7 +514,19 @@ ALTER TABLE `tb_cost_unit`
 -- AUTO_INCREMENT untuk tabel `tb_histori`
 --
 ALTER TABLE `tb_histori`
-  MODIFY `id_histori` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_histori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_jabatan`
+--
+ALTER TABLE `tb_jabatan`
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_jabatan_user`
+--
+ALTER TABLE `tb_jabatan_user`
+  MODIFY `id_jabatan_user` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_lampiran`
@@ -455,16 +547,10 @@ ALTER TABLE `tb_role`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_role_user`
---
-ALTER TABLE `tb_role_user`
-  MODIFY `id_role_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT untuk tabel `tb_unit`
 --
 ALTER TABLE `tb_unit`
-  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
@@ -477,11 +563,19 @@ ALTER TABLE `tb_user`
 --
 
 --
+-- Ketidakleluasaan untuk tabel `tb_jabatan_user`
+--
+ALTER TABLE `tb_jabatan_user`
+  ADD CONSTRAINT `tb_jabatan_user_ibfk_1` FOREIGN KEY (`jabatan_id`) REFERENCES `tb_jabatan` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_jabatan_user_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `tb_user` (`id_user`);
+
+--
 -- Ketidakleluasaan untuk tabel `tb_pengajuan`
 --
 ALTER TABLE `tb_pengajuan`
   ADD CONSTRAINT `tb_pengajuan_ibfk_1` FOREIGN KEY (`cost_center_id`) REFERENCES `tb_cost_center` (`id_cost_center`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tb_pengajuan_ibfk_2` FOREIGN KEY (`cost_unit_id`) REFERENCES `tb_cost_unit` (`id_cost_unit`);
+  ADD CONSTRAINT `tb_pengajuan_ibfk_2` FOREIGN KEY (`cost_unit_id`) REFERENCES `tb_cost_unit` (`id_cost_unit`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_pengajuan_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
