@@ -12,9 +12,10 @@ class Core_Model extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	public function get_join_1tb($table, $join, $order=null){
+	public function get_join_1tb($table, $where, $join, $order=null){
 		$this->db->select('*');
 		$this->db->from($table);
+		$this->db->where($where);
 		$this->db->join($join['join'], $join['referensi']);
 		if($order != null){
 			$this->db->order_by($order['select_by'], $order['order_by']);
@@ -41,7 +42,7 @@ class Core_Model extends CI_Model
 	public function select_join_2tb($table, $where, $join, $order=null){
 		$this->db->select('*');
 		$this->db->from($table);
-		$this->db->where('id_pengajuan', $where);
+		$this->db->where($where);
 		$this->db->join($join['join1'], $join['referensi1']);
 		$this->db->join($join['join2'], $join['referensi2']);
 		if($order != null){

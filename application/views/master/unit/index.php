@@ -12,7 +12,7 @@
 		<div class="col-lg">
 			<div class="card shadow mb-4 border-bottom-primary">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('pengajuan/kontrak/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Kontrak</a></h6>
+					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('master/unit/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Unit</a></h6>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -20,38 +20,21 @@
 							<thead>
 								<tr>
 									<th>NO</th>
-									<th>Kode</th>
-									<th>Cost Unit</th>
-									<th>Cost Center</th>
-									<th>Proyek Pengajuan</th>
-									<th>Vendor Pengajuan</th>
-									<th>Alamat Vendor</th>
-									<th>VET Pajak</th>
-									<th>DPP Pajak</th>
-									<th>Tanggal Invoice</th>
-									<th>Tanggal Dibuat</th>
+									<th>Nama Unit</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
 								$no = 1;
-								foreach ($pengajuan as $p) :
+								foreach ($unit as $u) :
 								?>
 									<tr>
 										<td><?= $no++ ?></td>
-										<td><?= $p->kode_pengajuan ?></td>
-										<td><?= $p->nama_cost_unit ?></td>
-										<td><?= $p->nama_cost_center ?></td>
-										<td><?= $p->proyek_pengajuan ?></td>
-										<td><?= $p->vendor_pengajuan ?></td>
-										<td><?= $p->alamat_vendor_pengajuan ?></td>
-										<td><?= $p->vet_pajak_pengajuan ?></td>
-										<td><?= $p->dpp_pajak_pengajuan ?></td>
-										<td><?= $p->tanggal_invoice_pengajuan ?></td>
-										<td><?= $p->created_at_pengajuan ?></td>
+										<td><?= $u->nama_unit ?></td>
 										<td>
-											<a href="<?=base_url('pengajuan/kontrak/histori/') . $p->kode_pengajuan;?>" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Histori"><i class="fas fa-history"></i></a>
+											<a href="<?=base_url('master/unit/ubah/') . $u->id_unit;?>" class="badge badge-success mr-2" data-toggle="tooltip" data-placement="left" title="Ubah"><i class="fas fa-edit"></i></a>
+											<a href="<?=base_url('master/unit/hapus/') . $u->id_unit;?>" class="badge badge-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a>
 											<!-- <div class="btn-group dropleft">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													<i class="fas fa-list-ul"></i>

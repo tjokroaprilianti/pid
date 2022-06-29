@@ -39,58 +39,27 @@ class Login extends CI_Controller
 
 			if ($user) {
 				if (password_verify($password, $user->password_user)) {
-					if ($user->status_user == 'On') {
-						if ($user->role_id == 1) {
-							$newdata = [
-								'username'  => $user->username_user,
-								'nama'  => $user->nama_user,
-								'avatar'  => $user->avatar_user,
-								'login' => 1,
-								'role' => $user->role_id,
-							];
-							$pesan = '
-							<div class="alert alert-success" role="alert">
-								<div class="container text-center">
-									<span class="badge badge-success">Berhasil</span> Selamat datang admin ' . $user->nama_user . '.
-								</div>
-							</div>
-							';
-							$this->session->set_userdata($newdata);
-							$this->session->set_flashdata('message', $pesan);
-							redirect('admin/dashboard');
-						} else {
-							$newdata = [
-								'username'  => $user->username_user,
-								'nama'  => $user->nama_user,
-								'avatar'  => $user->avatar_user,
-								'login' => 1,
-							];
-							$pesan = '
-							<div class="alert alert-success" role="alert">
-								<div class="container text-center">
-									<span class="badge badge-success">Berhasil</span> Selamat datang ' . $user->nama_user . '.
-								</div>
-							</div>
-							';
-							$this->session->set_userdata($newdata);
-							$this->session->set_flashdata('message', $pesan);
-							redirect('dashboard');
-						}
-					} else {
-						$this->session->set_flashdata('message', '
-						<div class="alert alert-danger" role="alert">
-							<div class="container text-center">
-								<span class="badge badge-danger">Gagal</span> Akun tidak aktif, harap hubungi admin!.
-							</div>
+					$newdata = [
+						'username'  => $user->username_user,
+						'role' => $user->role,
+						'nama'  => $user->nama_user,
+						'avatar'  => $user->avatar_user,
+						'login' => 1,
+					];
+					$this->session->set_userdata($newdata);
+					$this->session->set_flashdata('message', '
+					<div class="alert alert-success" role="alert">
+						<div class="container text-center">
+							<span class="badge badge-success">Berhasil</span> Login berhasil.
 						</div>
-						');
-						redirect('login');
-					}
+					</div>
+					');
+					redirect('dashboard');
 				} else {
 					$this->session->set_flashdata('message', '
 					<div class="alert alert-danger" role="alert">
 						<div class="container text-center">
-							<span class="badge badge-danger">Gagal</span> Harap periksa kembali username dan password anda!.
+							<span class="badge badge-danger">Gagal</span> Harap periksa kembali, password anda!.
 						</div>
 					</div>
 					');
@@ -100,7 +69,7 @@ class Login extends CI_Controller
 				$this->session->set_flashdata('message', '
 				<div class="alert alert-danger" role="alert">
 					<div class="container text-center">
-						<span class="badge badge-danger">Failed</span> Harap periksa kembali username dan password anda!.
+						<span class="badge badge-danger">Failed</span> Harap periksa kembali, username tidak ditemukan!.
 					</div>
 				</div>
 					');

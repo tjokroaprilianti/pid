@@ -7,13 +7,12 @@ class Profile extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		cek_belum_login();
-		cek_admin();
 		$this->load->model('Core_Model', 'core');
 	}
 
 	public function index()
 	{
+		cek_belum_login();
 		$data = [
 			'title' => 'Profile',
 			'user' => $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]),
@@ -76,7 +75,7 @@ class Profile extends CI_Controller
 			$config['allowed_types']        = 'jpeg|jpg|png|PNG|JPG|JPEG';
 			$config['remove_spaces']        = 1;
 			$config['max_size']             = 2548;
-			$config['file_name'] 			= 'avatar' . '-' . date('ymd') . substr(str_shuffle(time()), 0, 6);
+			$config['file_name'] 			= 'avatar' . $this->session->userdata('useranme') . '-' . date('my') . substr(str_shuffle(time()), 0, 6);
 
 			$this->load->library('upload', $config);
 
