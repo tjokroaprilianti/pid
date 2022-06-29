@@ -63,14 +63,17 @@
 								</div>
 							</div>
 							<div class="col-lg">
-								<label for="role_id">Role <span class="text-danger">*</span></label>
-								<select name="role_id" class="form-control" id="role_id">
+								<label for="role">Role <span class="text-danger">*</span></label>
+								<select name="role" class="form-control" id="role">
 									<option value="" class="text-gray-500">- pilih role -</option>
-									<?php foreach ($role as $r) : ?>
-										<option value="<?= $r->id_role ?>"><?= ucfirst($r->nama_role) ?></option>
-									<?php endforeach; ?>
+									<option value="Admin">Admin</option>
+									<option value="Unit">Unit</option>
+									<option value="Manager">Manager</option>
+									<option value="Accounting">Accounting</option>
+									<option value="Pajak">Pajak</option>
+									<option value="Pembayaran">Pembayaran</option>
 								</select>
-								<?= form_error('role_id', '<small class="form-text text-danger">', '</small>'); ?>
+								<?= form_error('role', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
 							<div class="col-lg">
 								<label for="unit_id">Unit <span class="text-danger">*</span></label>

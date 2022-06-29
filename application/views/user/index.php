@@ -22,6 +22,7 @@
 									<th>NO</th>
 									<th>Avatar</th>
 									<th>Nama</th>
+									<th>Unit</th>
 									<th>Username</th>
 									<th>Status</th>
 									<th>Role</th>
@@ -41,6 +42,7 @@
 											</a>
 										</td>
 										<td><?= $u->nama_user ?></td>
+										<td><?= $u->nama_unit ?></td>
 										<td><?= $u->username_user ?></td>
 										<td>
 											<?php if ($u->id_user !== $user_login->id_user) : ?>
@@ -63,16 +65,13 @@
 												</button>
 											<?php endif; ?>
 										</td>
-										<td><?= ucfirst($u->nama_role) ?></td>
+										<td><?= ucfirst($u->role) ?></td>
 										<td>
-											<a href="<?= base_url('user/avatar/') . $u->id_user; ?>" class="btn btn-sm btn-primary mr-2" data-toggle="tooltip" data-placement="left" title="Ubah avatar"><i class="fas fa-image"></i></a>
-											<a href="<?= base_url('user/setting/') . $u->id_user; ?>" class="btn btn-sm btn-secondary mr-2" data-toggle="tooltip" data-placement="left" title="Setting"><i class="fas fa-cog"></i></a>
 											<?php if ($u->id_user !== $user_login->id_user) : ?>
+												<a href="<?= base_url('user/avatar/') . $u->id_user; ?>" class="btn btn-sm btn-primary mr-2" data-toggle="tooltip" data-placement="left" title="Ubah avatar"><i class="fas fa-image"></i></a>
+												<a href="<?= base_url('user/setting/') . $u->id_user; ?>" class="btn btn-sm btn-secondary mr-2" data-toggle="tooltip" data-placement="left" title="Setting"><i class="fas fa-cog"></i></a>
 												<button type="button" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#passwordUserModal<?= $u->id_user ?>"><span data-toggle="tooltip" data-placement="left" title="Ubah Password"><i class="fas fa-lock"></i></span></button>
 											<?php endif; ?>
-											<!-- <?php if ($user_login->role_id == 1) : ?> -->
-											<!-- <a href="<?= base_url('admin/setting/role/user/hapus/') . $u->id_user; ?>" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="left" title="Hapus"><i class="fas fa-trash"></i></a> -->
-											<!-- <?php endif; ?> -->
 										</td>
 									</tr>
 								<?php endforeach; ?>

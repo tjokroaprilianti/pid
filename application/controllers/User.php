@@ -12,13 +12,10 @@ class User extends CI_Controller
 
     public function index()
     {
-        $join = [
-            'join' => 'tb_role', 'referensi' => 'tb_role.id_role = tb_user.role_id',
-        ];
         $data = [
             'title' => 'Admin User',
-            'user_login' => $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]),
-            'user' => $this->core->get_join_1tb('tb_user', $join, ['select_by' => 'id_user', 'order_by' => 'ASC']),
+            'user_login' => $this->core->select_user(['username_user' => $this->session->userdata('username')]),
+            'user' => $this->core->get_all_user(['select_by' => 'id_user', 'order_by' => 'DESC']),
         ];
         $this->load->view('layout/header', $data);
         $this->load->view('layout/sidebar');
@@ -33,7 +30,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('username_user', 'Username', 'trim|required');
         $this->form_validation->set_rules('password_user', 'Password', 'trim|required|matches[konfirmasi_password]');
         $this->form_validation->set_rules('konfirmasi_password', 'Konfirmasi Password', 'trim|required');
-        $this->form_validation->set_rules('role_id', 'Role', 'trim|required');
+        $this->form_validation->set_rules('role', 'Role', 'trim|required');
         $this->form_validation->set_rules('unit_id', 'Unit', 'trim|required');
 
         $this->form_validation->set_message('matches', '{field} tidak sama!.');
@@ -41,8 +38,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data = [
                 'title' => 'Tambah User',
-                'role' => $this->core->get('tb_role'),
-                'unit' => $this->core->get('tb_unit'),
+                'unit' => $this->core->get_all_unit(),
             ];
             $this->load->view('layout/header', $data);
             $this->load->view('layout/sidebar');
@@ -55,10 +51,26 @@ class User extends CI_Controller
                 'username_user' => $this->input->post('username_user'),
                 'password_user' => password_hash($this->input->post('password_user'), PASSWORD_DEFAULT),
                 'status_user' =>  $this->input->post('status_user') != null ?  $this->input->post('status_user') : 'On',
-                'avatar_user' =>  'default.jpg',
-                'role_id' => $this->input->post('role_id'),
+                'role' => $this->input->post('role'),
                 'unit_id' => $this->input->post('unit_id'),
             ];
+
+            $input_avatar = $_FILES['avatar_user']['name'];
+            if ($input_avatar != null) {
+                $config['upload_path']          = './assets/img/avatar/';
+                $config['allowed_types']        = 'jpeg|jpg|png|PNG|JPG|JPEG';
+                $config['remove_spaces']        = 1;
+                $config['max_size']             = 3072;
+                $config['file_name']            = 'avatar' . '-' . date('ymd') . substr(str_shuffle(time()), 0, 6);
+
+                $this->load->library('upload', $config);
+                if ($this->upload->do_upload('avatar_user')) {
+                    $avatar = $this->upload->data('file_name');
+                    $data['avatar_user'] = $avatar;
+                }
+            } else {
+                $data['avatar_user'] = 'default.jpg';
+            }
             $this->core->create('tb_user', $data);
             $this->session->set_flashdata('message', '
             <div class="alert alert-success" role="alert">
@@ -89,7 +101,7 @@ class User extends CI_Controller
     {
         $data = [
             'title' => 'Avatar User',
-            'user' => $this->core->select('tb_user', ['id_user' => $id]),
+            'user' => $this->core->select_user(['id_user' => $id]),
         ];
         $this->load->view('layout/header', $data);
         $this->load->view('layout/sidebar');
@@ -120,13 +132,12 @@ class User extends CI_Controller
 				');
                 redirect('user');
             } else {
-                $avatar_lama = $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]);
+                $avatar_lama = $this->core->select_user(['username_user' => $this->session->userdata('username')]);
                 if ($avatar_lama->avatar_user != 'default.jpg') {
                     unlink(FCPATH . 'assets/img/avatar/' . $avatar_lama->avatar_user);
                 }
                 $avatar = $this->upload->data('file_name');
                 $data = ['avatar_user' => $avatar];
-                $this->session->set_userdata('avatar', $avatar);
                 $this->core->update('tb_user', ['id_user' => $id], $data);
                 $this->session->set_flashdata('message', '
 				<div class="alert alert-success" role="alert">
@@ -153,8 +164,7 @@ class User extends CI_Controller
     {
         $data = [
             'title' => 'Setting',
-            'user' => $this->core->select('tb_user', ['id_user' => $id]),
-            'role' => $this->core->get('tb_role'),
+            'user' => $this->core->select_user(['id_user' => $id]),
         ];
         $this->load->view('layout/header', $data);
         $this->load->view('layout/sidebar');
@@ -173,8 +183,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data = [
                 'title' => 'Setting User',
-                'user' => $this->core->select('tb_user', ['id_user' => $id]),
-                'role' => $this->core->get('tb_role'),
+                'user' => $this->core->select_user(['id_user' => $id]),
             ];
             $this->load->view('layout/header', $data);
             $this->load->view('layout/sidebar');
@@ -182,7 +191,7 @@ class User extends CI_Controller
             $this->load->view('user/setting', $data);
             $this->load->view('layout/footer');
         } else {
-            $data_user = $this->core->select('tb_user', ['id_user' => $id]);
+            $data_user = $this->core->select_user(['id_user' => $id]);
             $data = [
                 'nama_user' => $this->input->post('nama_user'),
                 'role_id' => $this->input->post('role_id'),
@@ -246,50 +255,4 @@ class User extends CI_Controller
             redirect('user');
         }
     }
-
-    // public function proses_ubah($id)
-    // {
-    //     $this->form_validation->set_rules('role_id', 'Nama Role', 'trim|required');
-    //     $this->form_validation->set_rules('user_id', 'Nama User', 'trim|required');
-
-    //     $this->form_validation->set_message('required', '{field} tidak boleh kosong!.');
-    //     if ($this->form_validation->run() == false) {
-    //         $data = [
-    //             'title' => 'Setting Ubah Role User',
-    //             'data_cost_center' => $this->core->select('tb_cost_center', ['id_cost_center' => $id])
-    //         ];
-    //         $this->load->view('layout/header', $data);
-    //         $this->load->view('layout/sidebar');
-    //         $this->load->view('layout/topbar');
-    //         $this->load->view('cost/center/ubah', $data);
-    //         $this->load->view('layout/footer');
-    //     } else {
-    //         $data = [
-    //             'user_id' => $this->input->post('user_id'),
-    //             'role_id' => $this->input->post('role_id'),
-    //         ];
-    //         $this->core->update('tb_role_user', ['id_role_user' => $id], $data);
-    //         $this->session->set_flashdata('message', '
-    //         <div class="alert alert-success" role="alert">
-    //             <div class="container text-center">
-    //                 <span class="badge badge-success">Berhasil</span> Role user berhasil diubah.
-    //             </div>
-    //         </div>
-    //         ');
-    //         redirect('setting/role/user');
-    //     }
-    // }
-
-    // public function hapus($id)
-    // {
-    //     $this->core->delete('tb_cost_center', ['param' => 'id_cost_center', 'id' => $id]);
-    //     $this->session->set_flashdata('message', '
-    //     <div class="alert alert-success" role="alert">
-    //         <div class="container text-center">
-    //             <span class="badge badge-success">Berhasil</span> Cost center berhasil dihapus.
-    //         </div>
-    //     </div>
-    //     ');
-    //     redirect('master/cost/center');
-    // }
 }
