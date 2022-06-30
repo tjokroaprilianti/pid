@@ -33,6 +33,18 @@ class Core_Model extends CI_Model
 		return $this->db->get()->result();	
 	}
 
+	public function select_pengajuan($param)
+	{
+		$this->db->select('*');
+		$this->db->from('tb_pengajuan');
+		$this->db->join('tb_user','tb_user.id_user = tb_pengajuan.user_id');
+		$this->db->join('tb_cost_center','tb_cost_center.id_cost_center = tb_pengajuan.cost_center_id');
+		$this->db->join('tb_cost_unit','tb_cost_unit.id_cost_unit = tb_pengajuan.cost_unit_id');
+		$this->db->where($param);
+		$query = $this->db->get()->row();
+		return $query;
+	}
+
 
 
 

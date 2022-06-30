@@ -53,8 +53,8 @@ class Kontrak extends CI_Controller
 			$this->load->view('layout/footer');
 		} else {
 			$user = $this->core->select('tb_user', ['username_user' => $this->session->userdata('username')]);
-			$random = '1234567890abcdefghijklmopqrstuvwxyz';
-			$kode_pengajuan = date('Ymd').'-'. substr(str_shuffle($random), 0, 6);
+			// $random = '1234567890abcdefghijklmopqrstuvwxyz';
+			$kode_pengajuan = md5($this->input->post('proyek_pengajuan'));
 			$data_pengajuan = [
 				'user_id' => $user->id_user,
 				'kode_pengajuan' => $kode_pengajuan,
@@ -71,7 +71,7 @@ class Kontrak extends CI_Controller
 			$data_histori = [
 				'kode_pengajuan' => $data_pengajuan['kode_pengajuan'],
 				'status_histori' => 'MENUNGGU',
-				'penerima' => 1,
+				'penerima' => 2,
 			];
 			$this->core->create('tb_histori', $data_histori);
 			$this->session->set_flashdata('message', '
@@ -93,6 +93,7 @@ class Kontrak extends CI_Controller
 		$data = [
 			'title' => 'Histori Kontrak',
 			'histori' => $this->core->get_join_1tb('tb_histori', ['kode_pengajuan' => $kode], $join),
+			'pengajuan' => $this->core->select_pengajuan(['kode_pengajuan' => $kode]),
 		];
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/sidebar');

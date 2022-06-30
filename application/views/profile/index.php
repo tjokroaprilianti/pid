@@ -70,7 +70,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- End Avatar -->
+			<!-- End Setting -->
 
 			<!-- Password -->
 			<div class="card shadow mb-4">
