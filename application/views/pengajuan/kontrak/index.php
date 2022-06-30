@@ -11,9 +11,11 @@
 	<div class="row">
 		<div class="col-lg">
 			<div class="card shadow mb-4 border-bottom-primary">
-				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold"><a href="<?= base_url('pengajuan/kontrak/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Kontrak</a></h6>
-				</div>
+				<?php if ($this->session->userdata('role') == 'Admin' || $this->session->userdata('role') == 'Unit') : ?>
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold"><a href="<?= base_url('pengajuan/kontrak/tambah') ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Kontrak</a></h6>
+					</div>
+				<?php endif ?>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -51,7 +53,7 @@
 										<td><?= $p->tanggal_invoice_pengajuan ?></td>
 										<td><?= $p->created_at_pengajuan ?></td>
 										<td>
-											<a href="<?=base_url('pengajuan/kontrak/histori/') . $p->kode_pengajuan;?>" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Histori"><i class="fas fa-history"></i></a>
+											<a href="<?= base_url('pengajuan/kontrak/histori/') . $p->kode_pengajuan; ?>" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Histori"><i class="fas fa-history"></i></a>
 											<!-- <div class="btn-group dropleft">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 													<i class="fas fa-list-ul"></i>
