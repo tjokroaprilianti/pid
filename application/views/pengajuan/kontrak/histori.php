@@ -71,20 +71,31 @@
 											<td>Waktu Submit Pengajuan</td>
 											<td>: <?= $pengajuan->created_at_pengajuan ?></td>
 										</tr>
-										<tr>
-											<td></td>
-											<td>
-												<button type="button" class="btn btn-sm btn-danger mr-2" data-toggle="modal" data-target="#StatusHistoriModal">
-													<i class="fas fa-times"></i> Ditolak
-												</button>
-												<form action="<?= base_url('pengajuan/kontrak/menyetujui/') . $pengajuan->kode_pengajuan; ?>" method="POST" style="display: inline;">
-													<input type="hidden" name="status_histori" value="DI PROSES">
-													<button type="submit" class="btn btn-sm btn-success border-0">
-														<i class="fas fa-check"></i> Diterima
-													</button>
-												</form>
-											</td>
-										</tr>
+										<?php if ($user_login->role != 'Unit') { ?>
+											<?php if ($select_histori->diterima == 0) { ?>
+												<?php if ($select_histori->penerima == $user_login->role) { ?>
+													<tr>
+														<td></td>
+														<td>
+															<button type="button" class="btn btn-sm btn-danger mr-2" data-toggle="modal" data-target="#StatusHistoriModal">
+																<i class="fas fa-times"></i> Ditolak
+															</button>
+															<form action="<?= base_url('pengajuan/kontrak/menyetujui/') . $pengajuan->kode_pengajuan; ?>" method="POST" style="display: inline;">
+																<input type="hidden" name="status_histori" value="DI PROSES">
+																<button type="submit" class="btn btn-sm btn-success border-0">
+																	<i class="fas fa-check"></i> Diterima
+																</button>
+															</form>
+														</td>
+													</tr>
+												<?php } else { ?>
+													<tr>
+														<td></td>
+														<td><span class="badge badge-success"><i class="fas fa-check"></i> Sudah Diterima</span></td>
+													</tr>
+												<?php } ?>
+											<?php } ?>
+										<?php } ?>
 									</tbody>
 								</table>
 							</div>

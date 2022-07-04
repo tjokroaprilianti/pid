@@ -14,11 +14,14 @@ class Core_Model extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	public function select_user($param)
+	public function select_user($param, $order = null)
 	{
 		$this->db->select('*');
 		$this->db->from('tb_user');
 		$this->db->where($param);
+		if ($order != null) {
+			$this->db->order_by($order['select_by'], $order['order_by']);
+		}
 		$query = $this->db->get()->row();
 		return $query;
 	}
@@ -70,6 +73,11 @@ class Core_Model extends CI_Model
 		return $query;
 	}
 
+	public function update_histori($where, $data)
+	{
+		$this->db->where($where);
+		return $this->db->update('tb_histori', $data);
+	}
 
 
 
@@ -139,12 +147,6 @@ class Core_Model extends CI_Model
 	public function select($table, $where)
 	{
 		return $this->db->get_where($table, $where)->row();
-	}
-
-	public function update($table, $where, $data)
-	{
-		$this->db->where($where);
-		return $this->db->update($table, $data);
 	}
 
 	public function delete($table, $where)

@@ -94,7 +94,7 @@ class Kontrak extends CI_Controller
 			'histori' => $all_histori,
 			'select_histori' => $select_histori,
 			'pengajuan' => $this->core->select_pengajuan(['kode_pengajuan' => $kode]),
-			'user' => $this->core->select_user(['role' => $select_histori->penerima]),
+			'user_login' => $this->core->select_user(['username_user' => $this->session->userdata('username')], ['select_by' => 'id_user', 'order_by' => 'DESC']),
 		];
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/sidebar');
@@ -110,6 +110,7 @@ class Kontrak extends CI_Controller
 		$data_histori = [
 			'kode_pengajuan' => $kode_pengajuan,
 			'status_histori' => $input_status_histori,
+			'diterima' => 0,
 		];
 		if($select_history_by_code->penerima == 'Manager'){
 			$data_histori['penerima'] = 'Accounting';
@@ -118,6 +119,7 @@ class Kontrak extends CI_Controller
 		}else{
 			$data_histori['penerima'] = 'Pembayaran';
 		}
+		$this->core->update_histori(['kode_pengajuan' => $kode_pengajuan, 'penerima' => $select_history_by_code->penerima], ['diterima' => 1]);
 		$this->core->create('tb_histori', $data_histori);
 		$message = '
 		<div class="alert alert-success" role="alert">
@@ -127,6 +129,6 @@ class Kontrak extends CI_Controller
 		</div>
 		';
         $this->session->set_flashdata('message', $message);
-        redirect('pengajuan/histori/'. $kode_pengajuan);
+        redirect('pengajuan/kontrak/histori/'. $kode_pengajuan);
 	}
 }

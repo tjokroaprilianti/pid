@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Jun 2022 pada 11.51
+-- Waktu pembuatan: 04 Jul 2022 pada 11.55
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -194,7 +194,8 @@ CREATE TABLE `tb_histori` (
   `id_histori` int(11) NOT NULL,
   `kode_pengajuan` varchar(125) NOT NULL,
   `status_histori` enum('MENUNGGU','DI PROSES','SELESAI','DITOLAK') NOT NULL,
-  `penerima` int(11) NOT NULL,
+  `penerima` enum('Manager','Accounting','Pajak','Pembayaran') NOT NULL,
+  `diterima` int(11) NOT NULL,
   `created_at_histori` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -202,8 +203,11 @@ CREATE TABLE `tb_histori` (
 -- Dumping data untuk tabel `tb_histori`
 --
 
-INSERT INTO `tb_histori` (`id_histori`, `kode_pengajuan`, `status_histori`, `penerima`, `created_at_histori`) VALUES
-(1, '6be4c319c32ce8eba89592f1cf7cdc45', 'MENUNGGU', 2, '2022-06-30 04:10:38');
+INSERT INTO `tb_histori` (`id_histori`, `kode_pengajuan`, `status_histori`, `penerima`, `diterima`, `created_at_histori`) VALUES
+(1, '6a44b925dfca04376541b84748b640de', 'MENUNGGU', 'Manager', 1, '2022-07-04 09:19:43'),
+(2, '13a866aa9163083070dd58497653c0f0', 'MENUNGGU', 'Manager', 1, '2022-07-04 09:23:45'),
+(3, '6a44b925dfca04376541b84748b640de', 'DI PROSES', 'Accounting', 0, '2022-07-04 09:39:01'),
+(4, '13a866aa9163083070dd58497653c0f0', 'DI PROSES', 'Accounting', 0, '2022-07-04 09:54:39');
 
 -- --------------------------------------------------------
 
@@ -247,7 +251,8 @@ CREATE TABLE `tb_pengajuan` (
 --
 
 INSERT INTO `tb_pengajuan` (`id_pengajuan`, `kode_pengajuan`, `user_id`, `cost_center_id`, `cost_unit_id`, `tanggal_invoice_pengajuan`, `proyek_pengajuan`, `vendor_pengajuan`, `alamat_vendor_pengajuan`, `vet_pajak_pengajuan`, `dpp_pajak_pengajuan`, `created_at_pengajuan`) VALUES
-(1, '6be4c319c32ce8eba89592f1cf7cdc45', 2, 6, 1, '2022-06-30 11:08:23', 'Pengajuan Upgrade Banwidth Internet 80Mbps ke 120Mbps', 'LintasArta NET', 'Jakarta Selatan', 'asdasd', 'asdasd', '2022-06-30 04:10:38');
+(1, '6a44b925dfca04376541b84748b640de', 2, 1, 1, '2022-07-03 16:18:47', 'Pengajuan Naik Banwidth Internet 120Mbps', 'LintasArta NET', 'Jaksel', '123', '123', '2022-07-04 09:19:43'),
+(2, '13a866aa9163083070dd58497653c0f0', 2, 28, 37, '2022-07-02 16:22:37', 'Mengajukan Pengadaan Lomba Mobile Lagend Bang-Bang Untuk Para Karyawan', 'PT. MONTOON INDONESIA', 'Jakbar', '123', '123', '2022-07-04 09:23:45');
 
 -- --------------------------------------------------------
 
@@ -336,8 +341,7 @@ ALTER TABLE `tb_cost_unit`
 -- Indeks untuk tabel `tb_histori`
 --
 ALTER TABLE `tb_histori`
-  ADD PRIMARY KEY (`id_histori`),
-  ADD KEY `penerima` (`penerima`);
+  ADD PRIMARY KEY (`id_histori`);
 
 --
 -- Indeks untuk tabel `tb_lampiran`
@@ -404,7 +408,7 @@ ALTER TABLE `tb_cost_unit`
 -- AUTO_INCREMENT untuk tabel `tb_histori`
 --
 ALTER TABLE `tb_histori`
-  MODIFY `id_histori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_histori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_lampiran`
@@ -416,7 +420,7 @@ ALTER TABLE `tb_lampiran`
 -- AUTO_INCREMENT untuk tabel `tb_pengajuan`
 --
 ALTER TABLE `tb_pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_unit`
