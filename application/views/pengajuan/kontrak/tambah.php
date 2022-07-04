@@ -14,7 +14,7 @@
 				<div class="card-header py-3">
 					<div class="row">
 						<div class="col-lg-8 my-auto">
-							<h6 class="m-0 font-weight-bold text-grey-700"><i class="fas fa-plus"></i> Form <?=$title?></h6>
+							<h6 class="m-0 font-weight-bold text-grey-600"><i class="fas fa-plus"></i> Form <?=$title?></h6>
 						</div>
 						<div class="col-lg">
 							<h6 class="m-0 font-weight-bold"><a href="<?= base_url('pengajuan/kontrak') ?>" class="btn btn-sm btn-secondary float-right"><i class="fas fa-arrow-left"></i> Kembali</a></h6>
