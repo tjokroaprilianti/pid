@@ -18,7 +18,7 @@ class Kontrak extends CI_Controller
 		];
 		$data = [
 			'title' => 'Pengajuan Kontrak',
-			'pengajuan' => $this->core->get_join_2tb('tb_pengajuan', $join, ['select_by' => 'id_pengajuan', 'order_by' => 'ASC']),
+			'pengajuan' => $this->core->get_join_2tb('tb_pengajuan', $join, ['select_by' => 'id_pengajuan', 'order_by' => 'DESC']),
 		];
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/sidebar');
@@ -71,7 +71,7 @@ class Kontrak extends CI_Controller
 			$data_histori = [
 				'kode_pengajuan' => $data_pengajuan['kode_pengajuan'],
 				'status_histori' => 'MENUNGGU',
-				'penerima' => 2,
+				'penerima' => 'Manager',
 			];
 			$this->core->create('tb_histori', $data_histori);
 			$this->session->set_flashdata('message', '
@@ -87,18 +87,46 @@ class Kontrak extends CI_Controller
 	
 	public function histori($kode)
 	{
-		$join = [
-			'join' => 'tb_user', 'referensi' => 'tb_user.id_user = tb_histori.penerima',
-		];
+		$all_histori = $this->core->get_all_histori(['kode_pengajuan' => $kode], ['select_by' => 'id_histori', 'order_by' => 'DESC']);
+		$select_histori = $this->core->select_histori(['kode_pengajuan' => $kode], ['select_by' => 'id_histori', 'order_by' => 'DESC']);
 		$data = [
 			'title' => 'Histori Kontrak',
-			'histori' => $this->core->get_join_1tb('tb_histori', ['kode_pengajuan' => $kode], $join),
+			'histori' => $all_histori,
+			'select_histori' => $select_histori,
 			'pengajuan' => $this->core->select_pengajuan(['kode_pengajuan' => $kode]),
+			'user' => $this->core->select_user(['role' => $select_histori->penerima]),
 		];
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/sidebar');
 		$this->load->view('layout/topbar');
 		$this->load->view('pengajuan/kontrak/histori', $data);
 		$this->load->view('layout/footer');
+	}
+
+	public function menyetujui($kode_pengajuan)
+	{
+		$input_status_histori = $this->input->post('status_histori', true);
+		$select_history_by_code = $this->core->select_histori(['kode_pengajuan' => $kode_pengajuan], ['select_by' => 'id_histori', 'order_by' => 'DESC']);
+		$data_histori = [
+			'kode_pengajuan' => $kode_pengajuan,
+			'status_histori' => $input_status_histori,
+		];
+		if($select_history_by_code->penerima == 'Manager'){
+			$data_histori['penerima'] = 'Accounting';
+		}elseif($select_history_by_code->penerima == 'Accounting'){
+			$data_histori['penerima'] = 'Pajak';
+		}else{
+			$data_histori['penerima'] = 'Pembayaran';
+		}
+		$this->core->create('tb_histori', $data_histori);
+		$message = '
+		<div class="alert alert-success" role="alert">
+			<div class="container text-center">
+				<span class="badge badge-success">Berhasil</span> Pengajuan kontrak diterima, dengan kode : '.$kode_pengajuan.'
+			</div>
+		</div>
+		';
+        $this->session->set_flashdata('message', $message);
+        redirect('pengajuan/histori/'. $kode_pengajuan);
 	}
 }

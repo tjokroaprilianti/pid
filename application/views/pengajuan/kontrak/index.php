@@ -54,15 +54,6 @@
 										<td><?= $p->created_at_pengajuan ?></td>
 										<td>
 											<a href="<?= base_url('pengajuan/kontrak/histori/') . $p->kode_pengajuan; ?>" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Histori"><i class="fas fa-history"></i></a>
-											<!-- <div class="btn-group dropleft">
-												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-													<i class="fas fa-list-ul"></i>
-												</button>
-												<div class="dropdown-menu">
-													<a href="#" class="dropdown-item"> Edit</a>
-													<a href="#" class="dropdown-item"> Hapus</a>
-												</div>
-											</div> -->
 										</td>
 									</tr>
 								<?php endforeach; ?>

@@ -7,7 +7,7 @@ class Core_Model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('tb_user');
-		$this->db->join('tb_unit','tb_unit.id_unit = tb_user.unit_id');
+		$this->db->join('tb_unit', 'tb_unit.id_unit = tb_user.unit_id');
 		if ($order != null) {
 			$this->db->order_by($order['select_by'], $order['order_by']);
 		}
@@ -30,17 +30,42 @@ class Core_Model extends CI_Model
 		if ($order != null) {
 			$this->db->order_by($order['select_by'], $order['order_by']);
 		}
-		return $this->db->get()->result();	
+		return $this->db->get()->result();
 	}
 
 	public function select_pengajuan($param)
 	{
 		$this->db->select('*');
 		$this->db->from('tb_pengajuan');
-		$this->db->join('tb_user','tb_user.id_user = tb_pengajuan.user_id');
-		$this->db->join('tb_cost_center','tb_cost_center.id_cost_center = tb_pengajuan.cost_center_id');
-		$this->db->join('tb_cost_unit','tb_cost_unit.id_cost_unit = tb_pengajuan.cost_unit_id');
+		$this->db->join('tb_user', 'tb_user.id_user = tb_pengajuan.user_id');
+		$this->db->join('tb_cost_center', 'tb_cost_center.id_cost_center = tb_pengajuan.cost_center_id');
+		$this->db->join('tb_cost_unit', 'tb_cost_unit.id_cost_unit = tb_pengajuan.cost_unit_id');
 		$this->db->where($param);
+		$query = $this->db->get()->row();
+		return $query;
+	}
+
+	public function get_all_histori($where = null, $order = null)
+	{
+		$this->db->select('*');
+		$this->db->from('tb_histori');
+		if ($where != null) {
+			$this->db->where($where);
+		}
+		if ($order != null) {
+			$this->db->order_by($order['select_by'], $order['order_by']);
+		}
+		return $this->db->get()->result();
+	}
+
+	public function select_histori($param,  $order = null)
+	{
+		$this->db->select('*');
+		$this->db->from('tb_histori');
+		$this->db->where($param);
+		if ($order != null) {
+			$this->db->order_by($order['select_by'], $order['order_by']);
+		}
 		$query = $this->db->get()->row();
 		return $query;
 	}

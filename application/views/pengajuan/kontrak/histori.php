@@ -71,6 +71,20 @@
 											<td>Waktu Submit Pengajuan</td>
 											<td>: <?= $pengajuan->created_at_pengajuan ?></td>
 										</tr>
+										<tr>
+											<td></td>
+											<td>
+												<button type="button" class="btn btn-sm btn-danger mr-2" data-toggle="modal" data-target="#StatusHistoriModal">
+													<i class="fas fa-times"></i> Ditolak
+												</button>
+												<form action="<?= base_url('pengajuan/kontrak/menyetujui/') . $pengajuan->kode_pengajuan; ?>" method="POST" style="display: inline;">
+													<input type="hidden" name="status_histori" value="DI PROSES">
+													<button type="submit" class="btn btn-sm btn-success border-0">
+														<i class="fas fa-check"></i> Diterima
+													</button>
+												</form>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -83,7 +97,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg">
-									<a href="#" class="btn btn-sm btn-primary mt-2"><i class="fas fa-eye"></i> PDF</a>
+									<a href="#" class="btn btn-sm btn-danger mt-2"><i class="fas fa-eye"></i> PDF</a>
 								</div>
 							</div>
 						</div>
@@ -129,7 +143,7 @@
 											<?php else : ?>
 												<td class="text-center"><small class="badge badge-danger"><?= $h->status_histori ?></small></td>
 											<?php endif; ?>
-											<td>(<?= $h->role ?>) <?= $h->nama_user ?></td>
+											<td><?= $h->penerima ?></td>
 
 											<td><?= $h->created_at_histori ?></td>
 										</tr>
@@ -146,3 +160,29 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<!-- Modal Status Histori-->
+<div class="modal fade" id="StatusHistoriModal" tabindex="-1" aria-labelledby="StatusHistoriModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="StatusHistoriModalLabel">Ditolak</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="" method="POST">
+					<div class="form-group">
+						<label for="alasan">Alasan</label>
+						<textarea class="form-control" id="alasan" rows="3"></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+				<button type="button" class="btn btn-sm btn-primary"><i class="fas fa-paper-plane"></i> Kirim</button>
+			</div>
+		</div>
+	</div>
+</div>
