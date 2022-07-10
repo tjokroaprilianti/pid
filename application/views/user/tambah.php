@@ -66,12 +66,16 @@
 								<label for="role">Role <span class="text-danger">*</span></label>
 								<select name="role" class="form-control" id="role">
 									<option value="" class="text-gray-500">- pilih role -</option>
+
 									<option value="Admin">Admin</option>
 									<option value="Unit">Unit</option>
 									<option value="Manager">Manager</option>
 									<option value="Accounting">Accounting</option>
 									<option value="Pajak">Pajak</option>
 									<option value="Pembayaran">Pembayaran</option>
+									<option value="Anggaran">Anggaran</option>
+									<option value="Manager Treasury">Manager Treasury</option>
+									<option value="VP Of Corporate Finance">VP Of Corporate Finance</option>
 								</select>
 								<?= form_error('role', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>

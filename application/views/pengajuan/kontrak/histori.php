@@ -77,9 +77,12 @@
 													<tr>
 														<td></td>
 														<td>
+
+															<input type="hidden" name="status_histori" value="DITOLAK">
 															<button type="button" class="btn btn-sm btn-danger mr-2" data-toggle="modal" data-target="#StatusHistoriModal">
 																<i class="fas fa-times"></i> Ditolak
 															</button>
+
 															<form action="<?= base_url('pengajuan/kontrak/menyetujui/') . $pengajuan->kode_pengajuan; ?>" method="POST" style="display: inline;">
 																<input type="hidden" name="status_histori" value="DI PROSES">
 																<button type="submit" class="btn btn-sm btn-success border-0">
@@ -94,8 +97,12 @@
 														<td><span class="badge badge-success"><i class="fas fa-check"></i> Sudah Diterima</span></td>
 													</tr>
 												<?php } ?>
-											<?php } ?>
-										<?php } ?>
+											<?php } else {
+												$select_histori->diterima == 1;
+											} ?>
+										<?php } else {
+											$user_login->role == 'Unit';
+										} ?>
 									</tbody>
 								</table>
 							</div>
@@ -151,6 +158,8 @@
 												<td class="text-center"><small class="badge badge-primary"><?= $h->status_histori ?></small></td>
 											<?php elseif ($h->status_histori == 'SELESAI') : ?>
 												<td class="text-center"><small class="badge badge-success"><?= $h->status_histori ?></small></td>
+											<?php elseif ($h->status_histori == 'DITOLAK') : ?>
+												<td class="text-center"><small class="badge badge-success"><?= $h->status_histori ?></small></td>
 											<?php else : ?>
 												<td class="text-center"><small class="badge badge-danger"><?= $h->status_histori ?></small></td>
 											<?php endif; ?>
@@ -173,27 +182,52 @@
 <!-- /.container-fluid -->
 
 <!-- Modal Status Histori-->
+<!-- <form action="/histori" method="POST"> -->
 <div class="modal fade" id="StatusHistoriModal" tabindex="-1" aria-labelledby="StatusHistoriModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="StatusHistoriModalLabel">Ditolak</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="" method="POST">
+			<form action=<?= base_url('pengajuan/kontrak/rejected/') . $pengajuan->kode_pengajuan ?> method="POST">
+
+				<div class="modal-header">
+
+					<h5 class="modal-title" id="StatusHistoriModalLabel">Ditolak</h5>
+					<button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<label for="alasan">Kode Pengajuan</label>
+					<p id="kode_pengajuan" name="kode_pengajuan" value=$pengajuan->kode_pengajuan; ><?php echo $pengajuan->kode_pengajuan; ?>
+						<label for="role">Role <span class="text-danger">*</span></label>
+						<select name="role" class="form-control" id="role">
+							<option value="" class="text-gray-500"> Untuk bagian siapa ? </option>
+							<option value="Unit">Unit</option>
+							<option value="Manager">Manager</option>
+							<option value="Accounting">Accounting</option>
+							<option value="Pajak">Pajak</option>
+							<option value="Pembayaran">Pembayaran</option>
+							<option value="Anggaran">Anggaran</option>
+							<option value="Manager Treasury">Manager Treasury</option>
+							<option value="VP Of Corporate Finance">VP Of Corporate Finance</option>
+						</select>
+						<?= form_error('role', '<small class="form-text text-danger">', '</small>'); ?>
 					<div class="form-group">
+						</p>
 						<label for="alasan">Alasan</label>
-						<textarea class="form-control" id="alasan" rows="3"></textarea>
+						<textarea class="form-control" id="alasan" name="alasan" rows="3"></textarea>
+						<input type="hidden" name="status_histori" value="DITOLAK">
 					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
-				<button type="button" class="btn btn-sm btn-primary"><i class="fas fa-paper-plane"></i> Kirim</button>
-			</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
+					<button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-times"></i> Kirim</button>
+				</div>
+			</form>
 		</div>
+
 	</div>
 </div>
+<!-- </form> -->

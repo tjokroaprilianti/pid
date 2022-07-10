@@ -14,7 +14,7 @@
 				<div class="card-header py-3">
 					<div class="row">
 						<div class="col-lg-8 my-auto">
-							<h6 class="m-0 font-weight-bold text-grey-600"><i class="fas fa-plus"></i> Form <?=$title?></h6>
+							<h6 class="m-0 font-weight-bold text-grey-600"><i class="fas fa-plus"></i> Form <?= $title ?></h6>
 						</div>
 						<div class="col-lg">
 							<h6 class="m-0 font-weight-bold"><a href="<?= base_url('pengajuan/kontrak') ?>" class="btn btn-sm btn-secondary float-right"><i class="fas fa-arrow-left"></i> Kembali</a></h6>
@@ -56,25 +56,37 @@
 								</div>
 								<?= form_error('tanggal_invoice_pengajuan', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
-							<div class="col-lg">
+							<div class="col-lg-6">
+								<label>Tanggal Invoice Berakhir <span class="text-danger">*</span></label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+									</div>
+									<input type="text" name="tanggal_invoice_akhir" id="datepickerakhir" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#datepickerakhir" autocomplete="off" placeholder="YYYY-MM-DD H:m:s" />
+								</div>
+								<?= form_error('tanggal_invoice_akhir', '<small class="form-text text-danger">', '</small>'); ?>
+							</div>
+
+						</div>
+						<div class="form-group form-row">
+							<div class="col-lg-6">
 								<label for="vendor_pengajuan">Vendor Pengajuan <span class="text-danger">*</span></label>
 								<input type="text" name="vendor_pengajuan" class="form-control" id="vendor_pengajuan">
 								<?= form_error('vendor_pengajuan', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
-						</div>
-						<div class="form-group form-row">
 							<div class="col-lg-6">
 								<label for="proyek_pengajuan">Proyek Pengajuan <span class="text-danger">*</span></label>
 								<textarea class="form-control" name="proyek_pengajuan" id="proyek_pengajuan" rows="3"></textarea>
 								<?= form_error('proyek_pengajuan', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
+
+						</div>
+						<div class="form-group form-row">
 							<div class="col-lg-6">
 								<label for="alamat_vendor_pengajuan">Alamat Vendor <span class="text-danger">*</span></label>
 								<textarea class="form-control" name="alamat_vendor_pengajuan" id="alamat_vendor_pengajuan" rows="3"></textarea>
 								<?= form_error('alamat_vendor_pengajuan', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
-						</div>
-						<div class="form-group form-row">
 							<div class="col-lg-6">
 								<label for="vet_pajak_pengajuan">VET Pajak Pengajuan <span class="text-danger">*</span></label>
 								<textarea class="form-control" name="vet_pajak_pengajuan" id="vet_pajak_pengajuan" rows="3"></textarea>

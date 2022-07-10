@@ -33,6 +33,7 @@ class Kontrak extends CI_Controller
 		$this->form_validation->set_rules('cost_center_id', 'Cost Center', 'trim|required');
 		$this->form_validation->set_rules('cost_unit_id', 'Cost Unit', 'trim|required');
 		$this->form_validation->set_rules('tanggal_invoice_pengajuan', 'Tanggal Invoice Pengajuan', 'trim|required');
+		$this->form_validation->set_rules('tanggal_invoice_akhir', 'Tanggal Invoice Akhir', 'trim|required');
 		$this->form_validation->set_rules('vendor_pengajuan', 'Vendor Pengajuan', 'trim|required');
 		$this->form_validation->set_rules('proyek_pengajuan', 'Proyek Pengajuan', 'trim|required');
 		$this->form_validation->set_rules('alamat_vendor_pengajuan', 'Alamat Vendor Pengajuan', 'trim|required');
@@ -61,6 +62,7 @@ class Kontrak extends CI_Controller
 				'cost_center_id' => $this->input->post('cost_center_id'),
 				'cost_unit_id' => $this->input->post('cost_unit_id'),
 				'tanggal_invoice_pengajuan' => $this->input->post('tanggal_invoice_pengajuan'),
+				'tanggal_invoice_akhir' => $this->input->post('tanggal_invoice_akhir'),
 				'proyek_pengajuan' => $this->input->post('proyek_pengajuan'),
 				'vendor_pengajuan' => $this->input->post('vendor_pengajuan'),
 				'alamat_vendor_pengajuan' => $this->input->post('alamat_vendor_pengajuan'),
@@ -73,22 +75,24 @@ class Kontrak extends CI_Controller
 				'status_histori' => 'MENUNGGU',
 				'penerima' => 'Manager',
 			];
+
 			$this->core->create('tb_histori', $data_histori);
 			$this->session->set_flashdata('message', '
 				<div class="alert alert-success" role="alert">
 					<div class="container text-center">
-						<span class="badge badge-success">Berhasil</span> Pengajuan kontrak berhasil dibuat.
+						<span class="badge badge-success">Berhasil</span> Pengajuan kontrak berhasil dibuat. ' . $data_pengajuan['tanggal_invoice_akhir'] . '
 					</div>
 				</div>
 				');
 			redirect('pengajuan/kontrak');
 		}
 	}
-	
+
 	public function histori($kode)
 	{
 		$all_histori = $this->core->get_all_histori(['kode_pengajuan' => $kode], ['select_by' => 'id_histori', 'order_by' => 'DESC']);
 		$select_histori = $this->core->select_histori(['kode_pengajuan' => $kode], ['select_by' => 'id_histori', 'order_by' => 'DESC']);
+
 		$data = [
 			'title' => 'Histori Kontrak',
 			'histori' => $all_histori,
@@ -112,23 +116,64 @@ class Kontrak extends CI_Controller
 			'status_histori' => $input_status_histori,
 			'diterima' => 0,
 		];
-		if($select_history_by_code->penerima == 'Manager'){
+		if ($select_history_by_code->penerima == 'Manager') {
+			$data_histori['penerima'] = 'Anggaran';
+		} elseif ($select_history_by_code->penerima == 'Anggaran') {
 			$data_histori['penerima'] = 'Accounting';
-		}elseif($select_history_by_code->penerima == 'Accounting'){
+		} elseif ($select_history_by_code->penerima == 'Accounting') {
 			$data_histori['penerima'] = 'Pajak';
-		}else{
+		} elseif ($select_history_by_code->penerima == 'Pajak') {
+			$data_histori['penerima'] = 'Manager Treasury';
+		} elseif ($select_history_by_code->penerima == 'Manajer Treasury') {
+			$data_histori['penerima'] = 'VP Of Corporate Finane';
+		} elseif ($select_history_by_code->penerima == 'VP Of Corporate Finane') {
 			$data_histori['penerima'] = 'Pembayaran';
+		} else {
+			$data_histori['penerima'] = 'Unit';
 		}
-		$this->core->update_histori(['kode_pengajuan' => $kode_pengajuan, 'penerima' => $select_history_by_code->penerima], ['diterima' => 1]);
+		$this->core->update_histori(['kode_pengajuan' => $kode_pengajuan, 'penerima' => $select_history_by_code->penerima], ['diterima' => 1, 'status_histori' => 'DITERIMA',]);
 		$this->core->create('tb_histori', $data_histori);
 		$message = '
 		<div class="alert alert-success" role="alert">
 			<div class="container text-center">
-				<span class="badge badge-success">Berhasil</span> Pengajuan kontrak diterima, dengan kode : '.$kode_pengajuan.'
+				<span class="badge badge-success">Berhasil</span> Pengajuan kontrak diterima, dengan kode : ' . $kode_pengajuan . '
 			</div>
 		</div>
 		';
-        $this->session->set_flashdata('message', $message);
-        redirect('pengajuan/kontrak/histori/'. $kode_pengajuan);
+		$this->session->set_flashdata('message', $message);
+		redirect('pengajuan/kontrak/histori/' . $kode_pengajuan);
+	}
+
+	public function rejected($kode_pengajuan)
+	{
+		$input_status_histori = $this->input->post('status_histori', true);
+		$input_alasan_histori = $this->input->post('alasan', true);
+		$select_history_by_code = $this->core->select_histori(['kode_pengajuan' => $kode_pengajuan], ['select_by' => 'id_histori', 'order_by' => 'DESC']);
+		$data_histori = [
+			//'kode_pengajuan' => $kode_pengajuan,
+			'status_histori' => $input_status_histori,
+			'diterima' => 2,
+			'alasan' => $input_alasan_histori,
+		];
+
+		if ($select_history_by_code->penerima == 'Manager') {
+			$data_histori['penerima'] = 'Unit';
+		} elseif ($select_history_by_code->penerima == 'Accounting') {
+			$data_histori['penerima'] = 'Manager';
+		} elseif ($select_history_by_code->penerima == 'Pajak') {
+			$data_histori['penerima'] = 'Accounting';
+		}
+		$this->core->update_histori(['kode_pengajuan' => $kode_pengajuan, 'penerima' => $select_history_by_code->penerima], $data_histori);
+		//$this->core->create('tb_histori', $data_histori);
+		$message = '
+		<div class="alert alert-danger" role="alert">
+			<div class="container text-center">
+				<span class="badge badge-warning">Berhasil</span> Pengajuan kontrak ditolak, dengan kode : ' . $kode_pengajuan . '
+				
+			</div>
+		</div>
+		';
+		$this->session->set_flashdata('message', $message);
+		redirect('pengajuan/kontrak/histori/' . $kode_pengajuan);
 	}
 }

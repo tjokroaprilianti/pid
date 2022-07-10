@@ -17,6 +17,7 @@ class User extends CI_Controller
             'user_login' => $this->core->select_user(['username_user' => $this->session->userdata('username')]),
             'user' => $this->core->get_all_user(['select_by' => 'id_user', 'order_by' => 'DESC']),
         ];
+
         $this->load->view('layout/header', $data);
         $this->load->view('layout/sidebar');
         $this->load->view('layout/topbar');
@@ -26,6 +27,7 @@ class User extends CI_Controller
 
     public function tambah()
     {
+
         $this->form_validation->set_rules('nama_user', 'Nama', 'trim|required');
         $this->form_validation->set_rules('username_user', 'Username', 'trim|required');
         $this->form_validation->set_rules('password_user', 'Password', 'trim|required|matches[konfirmasi_password]');
@@ -39,6 +41,7 @@ class User extends CI_Controller
             $data = [
                 'title' => 'Tambah User',
                 'unit' => $this->core->get_all_unit(),
+
             ];
             $this->load->view('layout/header', $data);
             $this->load->view('layout/sidebar');
@@ -46,7 +49,9 @@ class User extends CI_Controller
             $this->load->view('user/tambah', $data);
             $this->load->view('layout/footer');
         } else {
+
             $data = [
+
                 'nama_user' => $this->input->post('nama_user'),
                 'username_user' => $this->input->post('username_user'),
                 'password_user' => password_hash($this->input->post('password_user'), PASSWORD_DEFAULT),
