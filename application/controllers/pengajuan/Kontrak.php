@@ -68,7 +68,24 @@ class Kontrak extends CI_Controller
 				'alamat_vendor_pengajuan' => $this->input->post('alamat_vendor_pengajuan'),
 				'vet_pajak_pengajuan' => $this->input->post('vet_pajak_pengajuan'),
 				'dpp_pajak_pengajuan' => $this->input->post('dpp_pajak_pengajuan'),
+
 			];
+
+			$input_file = $_FILES['file_pengajuan']['name'];
+			if ($input_file != null) {
+				$config['upload_path']   = './assets/img/upload/';
+				$config['allowed_types'] = 'pdf|doc|docx';
+				$config['max_size']      = 2000;
+
+
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('file_pengajuan')) {
+					echo "Upload File Gagal";
+				} else {
+
+					$data_pengajuan['file_pengajuan'] = $input_file;
+				}
+			}
 			$this->core->create('tb_pengajuan', $data_pengajuan);
 			$data_histori = [
 				'kode_pengajuan' => $data_pengajuan['kode_pengajuan'],
@@ -158,10 +175,10 @@ class Kontrak extends CI_Controller
 
 		if ($select_history_by_code->penerima == 'Manager') {
 			$data_histori['penerima'] = 'Unit';
-		} elseif ($select_history_by_code->penerima == 'Accounting') {
+		} elseif ($select_history_by_code->penerima == 'Anggaran') {
 			$data_histori['penerima'] = 'Manager';
-		} elseif ($select_history_by_code->penerima == 'Pajak') {
-			$data_histori['penerima'] = 'Accounting';
+		} elseif ($select_history_by_code->penerima == 'Accounting') {
+			$data_histori['penerima'] = 'Anggaran';
 		}
 		$this->core->update_histori(['kode_pengajuan' => $kode_pengajuan, 'penerima' => $select_history_by_code->penerima], $data_histori);
 		//$this->core->create('tb_histori', $data_histori);

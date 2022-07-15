@@ -32,6 +32,7 @@
 									<th>DPP Pajak</th>
 									<th>Tanggal Invoice</th>
 									<th>Tanggal Akhir</th>
+									<th>File Pengajuan</th>
 									<th>Tanggal Dibuat</th>
 									<th></th>
 								</tr>
@@ -53,6 +54,7 @@
 										<td><?= $p->dpp_pajak_pengajuan ?></td>
 										<td><?= $p->tanggal_invoice_pengajuan ?></td>
 										<td><?= $p->tanggal_invoice_akhir ?></td>
+										<td><?= $p->file_pengajuan ?></td>
 										<td><?= $p->created_at_pengajuan ?></td>
 										<td>
 											<a href="<?= base_url('pengajuan/kontrak/histori/') . $p->kode_pengajuan; ?>" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="left" title="Histori"><i class="fas fa-history"></i></a>

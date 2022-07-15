@@ -92,10 +92,17 @@
 								<textarea class="form-control" name="vet_pajak_pengajuan" id="vet_pajak_pengajuan" rows="3"></textarea>
 								<?= form_error('vet_pajak_pengajuan', '<small class="form-text text-danger">', '</small>'); ?>
 							</div>
+
+						</div>
+						<div class="form-group form-row">
 							<div class="col-lg-6">
 								<label for="dpp_pajak_pengajuan">DPP Pajak Pengajuan <span class="text-danger">*</span></label>
 								<textarea class="form-control" name="dpp_pajak_pengajuan" id="dpp_pajak_pengajuan" rows="3"></textarea>
 								<?= form_error('dpp_pajak_pengajuan', '<small class="form-text text-danger">', '</small>'); ?>
+							</div>
+							<div class="col-lg-6">
+								<label for="file_pengajuan">File Pengajuan<span class="text-danger">*</span></label>
+								<input type="file" name="file_pengajuan" id="file_pengajuan">
 							</div>
 						</div>
 						<button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>

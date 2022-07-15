@@ -48,6 +48,10 @@
 											<td>: <?= $pengajuan->tanggal_invoice_pengajuan ?></td>
 										</tr>
 										<tr>
+											<td>Tanggal Invoice Akhir</td>
+											<td>: <?= $pengajuan->tanggal_invoice_akhir ?></td>
+										</tr>
+										<tr>
 											<td>Proyek Pengajuan</td>
 											<td>: <?= $pengajuan->proyek_pengajuan ?></td>
 										</tr>
@@ -66,6 +70,10 @@
 										<tr>
 											<td>DPP Pajak Pengajuan</td>
 											<td>: <?= $pengajuan->dpp_pajak_pengajuan ?></td>
+										</tr>
+										<tr>
+											<td>File Pengajuan</td>
+											<td>: <?= $pengajuan->file_pengajuan ?></td>
 										</tr>
 										<tr>
 											<td>Waktu Submit Pengajuan</td>
@@ -94,7 +102,7 @@
 												<?php } else { ?>
 													<tr>
 														<td></td>
-														<td><span class="badge badge-success"><i class="fas fa-check"></i> Sudah Diterima</span></td>
+														<td><span class="badge badge-warning">Tidak ada pilihan </span></td>
 													</tr>
 												<?php } ?>
 											<?php } else {
@@ -159,6 +167,8 @@
 											<?php elseif ($h->status_histori == 'SELESAI') : ?>
 												<td class="text-center"><small class="badge badge-success"><?= $h->status_histori ?></small></td>
 											<?php elseif ($h->status_histori == 'DITOLAK') : ?>
+												<td class="text-center"><small class="badge badge-danger"><?= $h->status_histori ?></small></td>
+											<?php elseif ($h->status_histori == 'DITERIMA') : ?>
 												<td class="text-center"><small class="badge badge-success"><?= $h->status_histori ?></small></td>
 											<?php else : ?>
 												<td class="text-center"><small class="badge badge-danger"><?= $h->status_histori ?></small></td>
