@@ -102,7 +102,7 @@
 												<?php } else { ?>
 													<tr>
 														<td></td>
-														<td><span class="badge badge-warning">Tidak ada pilihan </span></td>
+														<td><span class="badge badge-success"><i class="fas fa-check"></i> Sudah Diterima</span></td>
 													</tr>
 												<?php } ?>
 											<?php } else {
